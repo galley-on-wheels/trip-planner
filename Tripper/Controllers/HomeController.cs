@@ -15,7 +15,7 @@ namespace Tripper.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Hello guys, lets code!";
 
             return View();
         }
