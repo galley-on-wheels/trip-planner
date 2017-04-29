@@ -1,0 +1,53 @@
+﻿.funnyfont {
+    font-family: 'Tangerine', serif;
+    font-weight: bold;
+    font-size: 180%;
+}
+
+body {
+    margin-left: 0%;
+    margin-right: 0%;
+    margin-top: 0px;
+}
+
+.jumbotron {
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    color: white;
+    border-radius: 3px 3px 3px 3px;
+    margin: 0px;
+}
+
+    .jumbotron h1, .jumbotron p, .navbar-brand {
+        font-family: 'Tangerine', serif;
+    }
+
+    .jumbotron p, .navbar-brand {
+        font-size: 250%;
+    }
+
+nav {
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+}
+
+.jumbotron .input-group {
+    width: 100% !important;
+}
+
+.container-fluid {
+    padding: 5px;
+}
+
+#contact .glyphicon {
+    font-size: 250%;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#getstarted {
+    margin-top: 50px;
+}
+
+#about {
+    margin-left: 10px;
+    margin-right: 10px;
+}

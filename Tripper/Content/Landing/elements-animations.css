@@ -1,0 +1,7 @@
+﻿#services .row div {
+            transition: transform 0.9s ease;
+        }
+
+        #services .row div:hover {
+            transform: rotateX(30deg) scale(1.2, 1.2);
+        }
