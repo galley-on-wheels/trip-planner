@@ -1,0 +1,65 @@
+﻿html, body, h1, h2, h3, h4, h5 {
+    font-family: "Raleway", sans-serif;
+}
+
+.w3-tangerine {
+    font-family: 'Tangerine', serif;
+}
+
+.w3-sidebar {
+}
+
+#top-bar {
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    color: white;
+    border-radius: 3px 3px 30px 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#top-bar a {
+    text-decoration: none;
+}
+
+.w3-main {
+    margin-top: 130px !important;
+}
+
+#company-title {
+    font-size: 250%;
+}
+
+#product-title {
+    font-size: 350%;
+    font-weight: bolder;
+    margin-left: 30%;
+}
+
+    #product-title:active {
+        text-decoration: none;
+    }
+
+@media screen and (max-width: 1000px) {
+    #product-title {
+        font-size: 250%;
+        font-weight: bold;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #product-title {
+        display: none;
+    }
+}
+
+.w3-sidebar .fa {
+    opacity: 0.4;
+}
+
+    .w3-sidebar .fa:hover {
+        opacity: 0.95;
+    }
+
+.w3-sidebar #main-control-elements a:hover {
+    background-color: transparent !important;
+}

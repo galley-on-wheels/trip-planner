@@ -1,0 +1,339 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Galley on Wheels - Tripper</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+
+    <!--Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <!---->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="icon"
+          type="image/png"
+          href="https://d30y9cdsu7xlg0.cloudfront.net/png/216559-200.png">
+
+    <!--All the styles for the landing page-->
+    <link href="~/Content/Landing/main.css" rel="stylesheet" />
+    
+    <!--Parallax-related styles-->
+    <link href="~/Content/Landing/parallax.css" rel="stylesheet" />
+    
+    <!--Custom animations-->
+    <link href="~/Content/Landing/elements-animations.css" rel="stylesheet" />
+
+    <!--Overriding standard styles-->
+    <link href="~/Content/Landing/custom-stylings.css" rel="stylesheet" />
+
+</head>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#myPage">Galley on Wheels</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#getstarted">GET STARTED</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#pricing">TEAM</a></li>
+                    <li><a href="#contact">CONTACTS</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Container (Portfolio Section) -->
+    <div id="getstarted" class="container-fluid text-center bg-grey">
+        <h2>THY NEIGHBOUR SAYS</h2>
+        <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div id="img0" class="item active">
+                    <h4>"These guys really excell at creating innovative products!"<br><i><span>Yuriy Timohin, CEO of Cure it All LLC</span></i></h4>
+                </div>
+                <div id="img1" class="item">
+                    <h4>"Finally, I can find the best way to travel to LA and purchase dope legally! Thank you <span class="funnyfont">Tripper</span>s"<br><span>Janis J., musician, poet, pot junkie</span></h4>
+                </div>
+                <div id="img2" class="item">
+                    <h4>"Show me anyone who's not satisfied with <span class="funnyfont">The Tripper</span> and I'll kick their funky ass."<br><span>Chivalrous Joe, nigger from Brooklyn</span></h4>
+                </div>
+                <div id="img3" class="item">
+                    <h4>"This is one bloody hell of a product!"<br><span>Queen Elizabeth II, Queen of the United Kingdom, Canada, Australia, and New Zealand</span></h4>
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    @{
+        string dashbordUrl = @Url.Action("Index", "Dashboard");
+    }
+
+    <div class="jumbotron text-center">
+        <h1>Galley on Wheels</h1>
+        <p>The Tripper - make your trips trippy again</p>
+        <div class="container-fluid slideanim">
+            <div class="row">
+                <div class="col-sm-4">
+                    <a class="btn btn-default btn-lg" href="@dashbordUrl">GET STARTED >>></a>
+                </div>
+
+                <div class="col-sm-8">
+                    <form>
+                        <div class="input-group">
+                            <input type="email" class="form-control" size="50" width="200" placeholder="Email Address" required>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-danger">Subscribe</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="parallax" id="kyiv"></div>
+
+    <!-- Container (About Section) -->
+    <div id="about" class="container-fluid">
+        <div class="row slideanim">
+            <div class="col-sm-8">
+                <h2 class="text-center">ABOUT THE PRODUCT</h2>
+                <h4><span class="funnyfont">The Tripper</span> - make your trips trippy again</h4><br>
+                <p>A few words about the Tripper.</p>
+            </div>
+            <div class="col-sm-4">
+                <button class="btn btn-default btn-lg" style="margin-top: 10px; width: 100%;">Contact us</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="parallax" id="san-fran"></div>
+
+    <!-- Container (Services Section) -->
+    <div id="services" class="container-fluid text-center">
+        <h2>SERVICES</h2>
+        <br>
+        <div class="row slideanim">
+            <div class="col-sm-4 col-md-3 col-xl-2">
+                <span class="glyphicon glyphicon-plane logo-small"></span>
+                <h4>Powerful integration</h4>
+                <p>Get plugged into a network of travel agencies, flight carriers and accomodation providers without digging into the technicalities.</p>
+            </div>
+            <div class="col-sm-4 col-md-3 col-xl-2">
+                <span class="glyphicon glyphicon-thumbs-up logo-small"></span>
+                <h4>Favorites</h4>
+                <p>Choose your preferences and let us use them to provide you with the most relevant results.</p>
+            </div>
+            <div class="col-sm-4 col-md-3 col-xl-2">
+                <span class="glyphicon glyphicon-lock logo-small"></span>
+                <h4>Privacy</h4>
+                <p>Your data is kept safe on our servers.</p>
+            </div>
+            <div class="col-sm-4 col-md-3 col-xl-2">
+                <span class="glyphicon glyphicon-leaf logo-small"></span>
+                <h4>Legal</h4>
+                <p><span class="funnyfont">The Tripper</span> is just a brand name and has nothing to do with recreational drugs.</p>
+            </div>
+            <div class="col-sm-4 col-md-3 col-xl-2">
+                <span class="glyphicon glyphicon-certificate logo-small"></span>
+                <h4>Certified</h4>
+                <p>Look forward to more secure SSL-enabled version coming soon.</p>
+            </div>
+            <div class="col-sm-4 col-md-3 col-xl-2">
+                <span class="glyphicon glyphicon-th logo-small"></span>
+                <h4 style="color:#303030;">Multifunctional</h4>
+                <p>We gather information from several services making your life easier.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="parallax" id="manhattan"></div>
+
+    <!-- Container (Team Section) -->
+    <div id="pricing" class="container-fluid">
+        <div class="text-center">
+            <h2>TEAM MEMBERS</h2>
+            <h4><span class="funnyfont">The Tripper</span> is developed by a team of 5 highly trained monkeys.</h4>
+        </div>
+        <div class="row slideanim">
+            <div class="col-xl-2 col-lg-2 col-sm-3 col-xs-12">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <img src="http://icons2.iconarchive.com/download/i5704/cuberto/toys/monkey.ico" />
+                        <h4>Anonymous #1</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><strong>Backend</strong> developer</p>
+                        <p><strong>Frontend</strong> developer</p>
+                    </div>
+                    <div class="panel-footer">
+                        <h3>20 hours</h3>
+                        <h4>per month</h4>
+                        <button class="btn btn-lg">Contact</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-sm-3 col-xs-12">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <img src="http://icons2.iconarchive.com/download/i5704/cuberto/toys/monkey.ico" />
+                        <h4>Anonymous #2</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><strong>Backend</strong> developer</p>
+                        <p><strong>Frontend</strong> developer</p>
+                    </div>
+                    <div class="panel-footer">
+                        <h3>20 hours</h3>
+                        <h4>per month</h4>
+                        <button class="btn btn-lg">Contact</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-sm-3 col-xs-12">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <img src="http://icons2.iconarchive.com/download/i5704/cuberto/toys/monkey.ico" />
+                        <h4>Anonymous #3</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><strong>Backend</strong> developer</p>
+                        <p><strong>Frontend</strong> developer</p>
+                    </div>
+                    <div class="panel-footer">
+                        <h3>20 hours</h3>
+                        <h4>per month</h4>
+                        <button class="btn btn-lg">Contact</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-sm-3 col-xs-12">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <img src="http://robdodson.github.io/webcomponents-revolution/img/freddie-wink.svg" />
+                        <h4>Anonymous #4</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><strong>Business</strong> analyst</p>
+                    </div>
+                    <div class="panel-footer">
+                        <h3>20 hours</h3>
+                        <h4>per month</h4>
+                        <button class="btn btn-lg">Contact</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-sm-3 col-xs-12">
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading">
+                        <img src="http://robdodson.github.io/webcomponents-revolution/img/freddie-wink.svg" />
+                        <h4>Anonymous #5</h4>
+                    </div>
+                    <div class="panel-body">
+                        <p><strong>Quality assurance</strong> engineer</p>
+                    </div>
+                    <div class="panel-footer">
+                        <h3>20 hours</h3>
+                        <h4>per month</h4>
+                        <button class="btn btn-lg">Contact</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="parallax" id="venice"></div>
+
+    <!-- Container (Contact Section) -->
+    <div id="contact" class="container-fluid bg-grey slideanim">
+        <h2 class="text-center">CONTACT</h2>
+        <div class="row">
+            <div class="col-sm-5">
+                <p><span class="glyphicon glyphicon-map-marker"></span> Kyiv, Ukraine</p>
+                <p><span class="glyphicon glyphicon-phone"></span> +38 042424222</p>
+                <p><span class="glyphicon glyphicon-envelope"></span> galleyOnWheels@gmail.com</p>
+            </div>
+            <div class="col-sm-7 slideanim">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Google Maps -->
+    <div id="googleMap" class="slideanim" style="height:400px;width:100%;"></div>
+    <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(50.449280, 30.459509);
+            var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: false, mapTypeId: google.maps.MapTypeId.ROADMAP };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({ position: myCenter });
+            marker.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlUR2gWb-Gqq7N8oCPTUjhTvAiHzYQ2kA&callback=myMap"></script>
+
+    <footer class="container-fluid text-center">
+        <a href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+    </footer>
+
+    <!--Scripts specific to this landing page-->
+    <script src="~/Scripts/Landing/main.js"></script>
+
+</body>
+</html>

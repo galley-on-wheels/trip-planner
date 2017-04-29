@@ -1,0 +1,34 @@
+﻿.parallax {
+    /* The image used */
+    /* Set a specific height */
+    min-height: 400px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px;
+    opacity: 0.5;
+    transition: opacity 0.9s ease, transform 1.5s ease-in-out;
+}
+
+    .parallax:hover {
+        opacity: 1;
+        transform: translate(5px, 5px);
+    }
+
+    .parallax#san-fran {
+        background-image: url("http://www.unc.edu/~eturshy/comp101/project4/sunsetbridge.jpg");
+    }
+
+    .parallax#kyiv {
+        background-image: url("https://kievtour.files.wordpress.com/2010/09/375879145_fb2e367425_b.jpg");
+    }
+
+    .parallax#manhattan {
+        background-image: url("http://www.destination360.com/north-america/us/new-york/images/s/brooklyn-bridge.jpg");
+    }
+
+    .parallax#venice {
+        background-image: url("http://www.seahawks.com/sites/seahawks.com/files/styles/borealis_article_image_respondlarge/public/field/image/ap154677126532.jpg");
+    }
