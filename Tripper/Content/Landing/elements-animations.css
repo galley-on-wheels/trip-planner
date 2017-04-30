@@ -3,5 +3,5 @@
         }
 
         #services .row div:hover {
-            transform: rotateX(30deg) scale(1.2, 1.2);
+            transform: rotateY(30deg) scale(1.2, 1.2);
         }
