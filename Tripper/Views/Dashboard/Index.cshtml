@@ -9,25 +9,59 @@
     <title>Tripper - Dashboard</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
+    <!--W3CSS-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- -->
 
     <!--Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
-    <!---->
+    <!-- -->
 
     <!--Custom styles-->
     <link href="~/Content/Dashboard/custom-styles.css" rel="stylesheet" />
+    <!-- -->
 
     <link rel="icon"
           type="image/png"
           href="https://d30y9cdsu7xlg0.cloudfront.net/png/216559-200.png">
+    
+    <!--Angular JS and Angular app files-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    
+    <script src="~/AngularApps/app.js"></script>
+    <script src="~/AngularApps/app.config.js"></script>
+    <!-- -->
+    
+
+    <!--The tab controllers-->
+    <script src="~/AngularApps/tabs/blank/blankController.js"></script>
+    <script src="~/AngularApps/tabs/dashboard/dashboardController.js"></script>
+    <script src="~/AngularApps/tabs/history/historyController.js"></script>
+    <script src="~/AngularApps/tabs/profile/profileController.js"></script>
+    <script src="~/AngularApps/tabs/search/searchController.js"></script>
+    <script src="~/AngularApps/tabs/settings/searchController.js"></script>
+    <!-- -->
+    
+    <!--The resolver directive-->
+    <script src="~/AngularApps/show-during-resolve/show-during-resolve.directive.js"></script>
+    <!---->
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
 
-<body class="w3-light-grey">
+<body ng-app="mainApp" class="w3-light-grey">
 
     <!-- Top container -->
     <div id="top-bar" class="w3-bar w3-top w3-large" style="z-index: 1">
@@ -55,12 +89,12 @@
         </div>
         <div class="w3-bar-block">
             <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Close"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
+            <a href="#/" class="w3-bar-item w3-button w3-padding w3-blue" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
+            <a href="#/search" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
+            <a href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
+            <a href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
+            <a href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
         </div>
     </nav>
 
@@ -71,7 +105,7 @@
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left: 300px; margin-top: 43px;">
 
-        
+        <ng-view></ng-view>
         
     </div>
 
