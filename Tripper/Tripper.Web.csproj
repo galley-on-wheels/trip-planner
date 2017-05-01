@@ -216,7 +216,7 @@
     <Content Include="AngularApps\tabs\history\historyController.js" />
     <Content Include="AngularApps\tabs\profile\profileController.js" />
     <Content Include="AngularApps\tabs\search\searchController.js" />
-    <Content Include="AngularApps\tabs\settings\searchController.js" />
+    <Content Include="AngularApps\tabs\settings\settingsController.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Dashboard\custom-styles.css" />
