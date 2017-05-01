@@ -7,8 +7,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Skyscanner.Contracts.Settings;
 using Skyscanner.Contracts.Settings.Countries;
 using Skyscanner.Contracts.Settings.Currencies;
