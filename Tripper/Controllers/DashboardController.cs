@@ -13,5 +13,35 @@ namespace Tripper.Controllers
         {
             return View();
         }
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
+        public ActionResult Blank()
+        {
+            return View();
+        }
+
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult History()
+        {
+            return View();
+        }
+
+        public ActionResult UserProfile()
+        {
+            return View("Profile");
+        }
+
+        public ActionResult Settings()
+        {
+            return View();
+        }
     }
 }
