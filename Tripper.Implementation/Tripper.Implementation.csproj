@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C0D934A5-0E72-4D61-94EE-4FC3CCBA10EC}</ProjectGuid>
+    <ProjectGuid>{17AD1315-7341-4563-90F1-7E25CF234C10}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Tripper.Contracts</RootNamespace>
-    <AssemblyName>Tripper.Contracts</AssemblyName>
+    <RootNamespace>Tripper.Implementation</RootNamespace>
+    <AssemblyName>Tripper.Implementation</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +45,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Search\ISearchService.cs" />
+    <Compile Include="Search\SearchService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Skyscanner.Contracts\Skyscanner.Contracts.csproj">
+      <Project>{2d4f84c2-31cf-42b6-993f-11cd97e22c6a}</Project>
+      <Name>Skyscanner.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tripper.Contracts\Tripper.Contracts.csproj">
+      <Project>{c0d934a5-0e72-4d61-94ee-4fc3ccba10ec}</Project>
+      <Name>Tripper.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

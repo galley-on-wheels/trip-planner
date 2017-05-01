@@ -13,28 +13,18 @@ using Skyscanner.Contracts.Settings;
 using Skyscanner.Contracts.Settings.Countries;
 using Skyscanner.Contracts.Settings.Currencies;
 using Skyscanner.Contracts.Settings.Locales;
+using Tripper.Contracts.Search;
+using Tripper.Implementation.Search;
 
 namespace Tripper.Controllers.Dashboard
 {
     public class SearchController : Controller
     {
-        private const string apiKey = "ia505394478393365424493565918448";
-        private const string apiEndpoint = "http://partners.api.skyscanner.net/apiservices/";
+        private ISearchService _searchService;
 
-        [NonAction]
-        public async Task<T> GetFromUrl<T>(string partialUrl) where T: class
+        public SearchController()
         {
-            var httpClient = new HttpClient();
-
-            var url = string.Format(CultureInfo.CurrentCulture, @"{0}{1}?apiKey={2}", apiEndpoint, partialUrl, apiKey);
-
-            var response = await httpClient.GetAsync(url);
-
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            var resultingObj = JsonConvert.DeserializeObject<T>(responseBody);
-
-            return resultingObj;
+            _searchService = new SearchService();
         }
 
         [HttpGet]
@@ -42,7 +32,7 @@ namespace Tripper.Controllers.Dashboard
         {
             var partialUrl = "reference/v1.0/locales";
 
-            var locales = await GetFromUrl<LocalesWrapper>(partialUrl);
+            var locales = await _searchService.GetFromUrl<LocalesWrapper>(partialUrl);
 
             var json = Json(locales.Locales, JsonRequestBehavior.AllowGet);
 
@@ -54,10 +44,10 @@ namespace Tripper.Controllers.Dashboard
         {
             var partialUrl = "reference/v1.0/currencies";
 
-            var currencies = await GetFromUrl<CurrenciesWrapper>(partialUrl);
+            var currencies = await _searchService.GetFromUrl<CurrenciesWrapper>(partialUrl);
 
             var json = Json(currencies.Currencies, JsonRequestBehavior.AllowGet);
-
+            
             return json;
         }
 
@@ -66,7 +56,7 @@ namespace Tripper.Controllers.Dashboard
         {
             var partialUrl = string.Format(CultureInfo.CurrentCulture, @"/reference/v1.0/countries/{0}", locale);
 
-            var countries = await GetFromUrl<CountriesWrapper>(partialUrl);
+            var countries = await _searchService.GetFromUrl<CountriesWrapper>(partialUrl);
 
             var json = Json(countries.Countries, JsonRequestBehavior.AllowGet);
 

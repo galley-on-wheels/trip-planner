@@ -316,6 +316,10 @@
       <Project>{c0d934a5-0e72-4d61-94ee-4fc3ccba10ec}</Project>
       <Name>Tripper.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Tripper.Implementation\Tripper.Implementation.csproj">
+      <Project>{17ad1315-7341-4563-90f1-7e25cf234c10}</Project>
+      <Name>Tripper.Implementation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
