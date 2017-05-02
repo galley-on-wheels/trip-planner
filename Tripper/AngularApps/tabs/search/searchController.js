@@ -25,7 +25,7 @@
     }
 
     $scope.originPlace = {};
-    $scope.originPlaces = {};
+    $scope.originPlaces = [];
 
     $scope.refreshOrigin = function(search) {
         var params = { query: search};
@@ -36,7 +36,7 @@
     };
 
     $scope.destinationPlace = {};
-    $scope.destinationPlaces = {};
+    $scope.destinationPlaces = [];
 
     $scope.refreshDestination = function (search) {
         var params = { query: search };
