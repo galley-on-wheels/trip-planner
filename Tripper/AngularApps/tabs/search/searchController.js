@@ -45,4 +45,12 @@
               $scope.destinationPlaces = response.data;
           });
     };
+
+    $scope.cabinClasses =
+    [
+        { Code: "economy", Name: "Economy" },
+        { Code: "premiumeconomy", Name: "Premium economy" },
+        { Code: "business", Name: "Business" },
+        { Code: "first", Name: "First" }
+    ];
 });

@@ -8,6 +8,9 @@
 <style>
     #form-container {
         margin: 10px;
+        margin-left: 50px;
+
+        position: fixed;
     }
 
     input:focus {
@@ -23,36 +26,43 @@
 <div id="form-container">
     <span show-during-resolve class="glyphicon glyphicon-refresh"></span>
     <form class="form-inline">
-        <select class="form-control" name="repeatSelect" ng-model="settings.selectedLocale" ng-change="loadCountries()">
-            <option value="" disabled selected>Select your locale</option>
-            <option ng-repeat="locale in settings.locales" value="{{locale.Code}}">{{locale.Name}}</option>
-        </select>
+        
+        <md-switch ng-model="useDefaults" aria-label="Finished?">
+            Use defaults
+        </md-switch>
 
-        <select class="form-control" name="repeatSelect" ng-model="settings.selectedCurrency">
-            <option value="" disabled selected>Select your currency</option>
-            <option ng-repeat="currency in settings.currencies" value="{{currency.Code}}">{{currency.Symbol}}</option>
-        </select>
+        <div id="basic-settings" ng-show="!useDefaults">
+            <select class="form-control" name="locale" ng-model="settings.selectedLocale" ng-change="loadCountries()">
+                <option value="" disabled selected>Select your locale</option>
+                <option ng-repeat="locale in settings.locales" value="{{locale.Code}}">{{locale.Name}}</option>
+            </select>
 
-        <select class="form-control" name="repeatSelect" ng-model="settings.selectedCountry">
-            <option value="" disabled selected>Select your country</option>
-            <option ng-repeat="country in settings.countries" value="{{country.Code}}">{{country.Name}}</option>
-        </select>
-        <br /> <br />
+            <select class="form-control" name="currency" ng-model="settings.selectedCurrency">
+                <option value="" disabled selected>Select your currency</option>
+                <option ng-repeat="currency in settings.currencies" value="{{currency.Code}}">{{currency.Symbol}}</option>
+            </select>
+
+            <select class="form-control" name="country" ng-model="settings.selectedCountry">
+                <option value="" disabled selected>Select your country</option>
+                <option ng-repeat="country in settings.countries" value="{{country.Code}}">{{country.Name}}</option>
+            </select>
+        </div>
+        <br/> <br/>
 
 
-        <p>Origin : {{originPlace.selected}}</p>
+        <p>Origin :</p>
         <ui-select ng-model="originPlace.selected" theme="bootstrap">
             <ui-select-match placeholder="Select or search a place in the list...">{{$select.selected.PlaceName}}</ui-select-match>
-            <ui-select-choices repeat="item in originPlaces | filter: $select.search" 
+            <ui-select-choices repeat="item in originPlaces | filter: $select.search"
                                refresh="refreshOrigin($select.search)"
                                refresh-delay="0">
                 <div ng-bind-html="item.PlaceName | highlight: $select.search"></div>
                 <small ng-bind-html="item.CountryName | highlight: $select.search"></small>
             </ui-select-choices>
         </ui-select>
-        <br />
-        
-        <p>Destination : {{destinationPlace.selected}}</p>
+        <br/>
+
+        <p>Destination :</p>
         <ui-select ng-model="destinationPlace.selected" theme="bootstrap">
             <ui-select-match placeholder="Select or search a place in the list...">{{$select.selected.PlaceName}}</ui-select-match>
             <ui-select-choices repeat="item in destinationPlaces | filter: $select.search"
@@ -62,7 +72,36 @@
                 <small ng-bind-html="item.CountryName | highlight: $select.search"></small>
             </ui-select-choices>
         </ui-select>
+        
+        <br /> <br />
 
-        <button type="submit" class="btn btn-default">Submit</button>
+        <md-datepicker ng-model="birthday"></md-datepicker>
+
+        <md-datepicker ng-model="birthdaySecond"></md-datepicker>
+
+        <br /> <br />
+        
+        Adults:
+        <md-slider md-discrete ng-model="adults" step="1" min="1" max="8">
+        </md-slider>
+        
+        Children:
+        <md-slider md-discrete ng-model="children" step="1" min="0" max="8">
+        </md-slider>
+
+        Infants:
+        <md-slider md-discrete ng-model="infants" step="1" min="0" max="8">
+        </md-slider>
+        
+        <p>Cabin class :</p>
+        <select class="form-control" name="cabin-class" ng-model="settings.cabinClass">
+            <option value="" disabled selected>Any</option>
+            <option ng-repeat="cabinClass in cabinClasses" value="{{cabinClass.Code}}">{{cabinClass.Name}}</option>
+        </select>
+
+
+        <br /> <br />
+
+        <button type="submit" class="btn btn-default">GO</button>
     </form>
 </div>
