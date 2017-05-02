@@ -20,6 +20,10 @@
     a:hover {
         text-decoration: none;
     }
+
+    .invisible {
+       visibility: hidden
+    }
 </style>
 
 
@@ -32,6 +36,12 @@
         </md-switch>
 
         <div id="basic-settings" ng-show="!useDefaults">
+            
+            <div class="spinner" ng-class="{'invisible': !loadingOrigin}">
+                <div class="cube1"></div>
+                <div class="cube2"></div>
+            </div>
+
             <select class="form-control" name="locale" ng-model="settings.selectedLocale" ng-change="loadCountries()">
                 <option value="" disabled selected>Select your locale</option>
                 <option ng-repeat="locale in settings.locales" value="{{locale.Code}}">{{locale.Name}}</option>
@@ -41,7 +51,7 @@
                 <option value="" disabled selected>Select your currency</option>
                 <option ng-repeat="currency in settings.currencies" value="{{currency.Code}}">{{currency.Symbol}}</option>
             </select>
-
+            
             <select class="form-control" name="country" ng-model="settings.selectedCountry">
                 <option value="" disabled selected>Select your country</option>
                 <option ng-repeat="country in settings.countries" value="{{country.Code}}">{{country.Name}}</option>
@@ -51,6 +61,11 @@
 
 
         <p>Origin :</p>
+        <div class="spinner" ng-class="{'invisible': !loadingOrigin}">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+        </div>
+
         <ui-select ng-model="originPlace.selected" theme="bootstrap">
             <ui-select-match placeholder="Select or search a place in the list...">{{$select.selected.PlaceName}}</ui-select-match>
             <ui-select-choices repeat="item in originPlaces | filter: $select.search"
@@ -60,9 +75,14 @@
                 <small ng-bind-html="item.CountryName | highlight: $select.search"></small>
             </ui-select-choices>
         </ui-select>
-        <br/>
+        
+        <br/> 
 
         <p>Destination :</p>
+        <div class="spinner" ng-class="{'invisible': !loadingDestination}">
+            <div class="cube1"></div>
+            <div class="cube2"></div>
+        </div>
         <ui-select ng-model="destinationPlace.selected" theme="bootstrap">
             <ui-select-match placeholder="Select or search a place in the list...">{{$select.selected.PlaceName}}</ui-select-match>
             <ui-select-choices repeat="item in destinationPlaces | filter: $select.search"

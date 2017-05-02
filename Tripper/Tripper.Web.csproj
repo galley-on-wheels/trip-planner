@@ -224,6 +224,7 @@
     <Content Include="Content\Landing\elements-animations.css" />
     <Content Include="Content\Landing\main.css" />
     <Content Include="Content\Landing\parallax.css" />
+    <Content Include="Content\Utilities\spinner.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

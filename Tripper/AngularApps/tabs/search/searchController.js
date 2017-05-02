@@ -26,23 +26,30 @@
 
     $scope.originPlace = {};
     $scope.originPlaces = [];
+    $scope.loadingOrigin = false;
 
-    $scope.refreshOrigin = function(search) {
+    $scope.refreshOrigin = function (search) {
+        $scope.loadingOrigin = true;
+
         var params = { query: search};
         return $http.get('search/GetAutosuggestedPlace', { params: params })
           .then(function (response) {
-                $scope.originPlaces = response.data;
+              $scope.originPlaces = response.data;
+              $scope.loadingOrigin = false;
             });
     };
 
     $scope.destinationPlace = {};
     $scope.destinationPlaces = [];
+    $scope.loadingDestination = false;
 
     $scope.refreshDestination = function (search) {
+        $scope.loadingDestination = true;
         var params = { query: search };
         return $http.get('search/GetAutosuggestedPlace', { params: params })
           .then(function (response) {
               $scope.destinationPlaces = response.data;
+              $scope.loadingDestination = false;
           });
     };
 
