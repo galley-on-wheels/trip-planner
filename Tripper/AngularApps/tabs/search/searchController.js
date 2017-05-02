@@ -24,13 +24,14 @@
         });
     }
 
-    $scope.place = {};
+    $scope.originPlace = {};
+    $scope.originPlaces = {};
 
     $scope.refreshData = function(search) {
         var params = { query: search};
         return $http.get('search/GetAutosuggestedPlace', { params: params })
           .then(function (response) {
-                $scope.places = response.data;
+                $scope.originPlaces = response.data;
             });
     };
 });

@@ -40,10 +40,10 @@
         <br /> <br />
 
 
-        <p>Selected: {{place.selected}}</p>
-        <ui-select ng-model="place.selected" theme="bootstrap">
+        <p>Selected : {{originPlace.selected}}</p>
+        <ui-select ng-model="originPlace.selected" theme="bootstrap">
             <ui-select-match placeholder="Select or search a place in the list...">{{$select.selected.PlaceName}}</ui-select-match>
-            <ui-select-choices repeat="item in places | filter: $select.search" 
+            <ui-select-choices repeat="item in originPlaces | filter: $select.search" 
                                refresh="refreshData($select.search)"
                                refresh-delay="0">
                 <div ng-bind-html="item.PlaceName | highlight: $select.search"></div>
