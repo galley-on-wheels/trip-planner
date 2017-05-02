@@ -6,8 +6,8 @@
 
         $routeProvider
         .when("/", {
-            templateUrl: "/dashboard/dashboard",
-            controller: "dashboardController"
+            templateUrl: "/dashboard/search",
+            controller: "searchController"
         })
         .when("/dashboard", {
             templateUrl: "/dashboard/dashboard",
