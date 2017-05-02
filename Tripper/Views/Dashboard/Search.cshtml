@@ -40,17 +40,28 @@
         <br /> <br />
 
 
-        <p>Selected : {{originPlace.selected}}</p>
+        <p>Origin : {{originPlace.selected}}</p>
         <ui-select ng-model="originPlace.selected" theme="bootstrap">
             <ui-select-match placeholder="Select or search a place in the list...">{{$select.selected.PlaceName}}</ui-select-match>
             <ui-select-choices repeat="item in originPlaces | filter: $select.search" 
-                               refresh="refreshData($select.search)"
+                               refresh="refreshOrigin($select.search)"
                                refresh-delay="0">
                 <div ng-bind-html="item.PlaceName | highlight: $select.search"></div>
                 <small ng-bind-html="item.CountryName | highlight: $select.search"></small>
             </ui-select-choices>
         </ui-select>
-
+        <br />
+        
+        <p>Destination : {{destinationPlace.selected}}</p>
+        <ui-select ng-model="destinationPlace.selected" theme="bootstrap">
+            <ui-select-match placeholder="Select or search a place in the list...">{{$select.selected.PlaceName}}</ui-select-match>
+            <ui-select-choices repeat="item in destinationPlaces | filter: $select.search"
+                               refresh="refreshDestination($select.search)"
+                               refresh-delay="0">
+                <div ng-bind-html="item.PlaceName | highlight: $select.search"></div>
+                <small ng-bind-html="item.CountryName | highlight: $select.search"></small>
+            </ui-select-choices>
+        </ui-select>
 
         <button type="submit" class="btn btn-default">Submit</button>
     </form>

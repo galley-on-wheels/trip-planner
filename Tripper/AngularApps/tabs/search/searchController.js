@@ -27,11 +27,22 @@
     $scope.originPlace = {};
     $scope.originPlaces = {};
 
-    $scope.refreshData = function(search) {
+    $scope.refreshOrigin = function(search) {
         var params = { query: search};
         return $http.get('search/GetAutosuggestedPlace', { params: params })
           .then(function (response) {
                 $scope.originPlaces = response.data;
             });
+    };
+
+    $scope.destinationPlace = {};
+    $scope.destinationPlaces = {};
+
+    $scope.refreshDestination = function (search) {
+        var params = { query: search };
+        return $http.get('search/GetAutosuggestedPlace', { params: params })
+          .then(function (response) {
+              $scope.destinationPlaces = response.data;
+          });
     };
 });
