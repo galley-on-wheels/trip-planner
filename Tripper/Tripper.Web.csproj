@@ -140,9 +140,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -197,6 +194,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\Dashboard\SearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandingController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -210,6 +208,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AngularApps\app.config.js" />
+    <Content Include="AngularApps\app.js" />
+    <Content Include="AngularApps\show-during-resolve\show-during-resolve.directive.js" />
+    <Content Include="AngularApps\tabs\blank\blankController.js" />
+    <Content Include="AngularApps\tabs\dashboard\dashboardController.js" />
+    <Content Include="AngularApps\tabs\history\historyController.js" />
+    <Content Include="AngularApps\tabs\profile\profileController.js" />
+    <Content Include="AngularApps\tabs\search\searchController.js" />
+    <Content Include="AngularApps\tabs\settings\settingsController.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Dashboard\custom-styles.css" />
@@ -278,9 +285,16 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Landing\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Views\Dashboard\Blank.cshtml" />
+    <Content Include="Views\Dashboard\Search.cshtml" />
+    <Content Include="Views\Dashboard\History.cshtml" />
+    <Content Include="Views\Dashboard\Profile.cshtml" />
+    <Content Include="Views\Dashboard\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Search\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -289,6 +303,20 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Skyscanner.Contracts\Skyscanner.Contracts.csproj">
+      <Project>{2d4f84c2-31cf-42b6-993f-11cd97e22c6a}</Project>
+      <Name>Skyscanner.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tripper.Contracts\Tripper.Contracts.csproj">
+      <Project>{c0d934a5-0e72-4d61-94ee-4fc3ccba10ec}</Project>
+      <Name>Tripper.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tripper.Implementation\Tripper.Implementation.csproj">
+      <Project>{17ad1315-7341-4563-90f1-7e25cf234c10}</Project>
+      <Name>Tripper.Implementation</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
