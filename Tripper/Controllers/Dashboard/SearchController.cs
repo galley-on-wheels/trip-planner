@@ -60,5 +60,21 @@ namespace Tripper.Controllers.Dashboard
 
             return json;
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetAutosuggestedPlace(string query)
+        {
+            var defaultLocale = "en-US";
+            var defaultCurrency = "USD";
+            var defaultMarket = "US";
+
+            var partialUrl = string.Format(CultureInfo.CurrentCulture, $"autosuggest/v1.0/{defaultMarket}/{defaultCurrency}/{defaultLocale}?query={query}&");
+
+            var places = await _searchService.GetFromUrl<PlacesWrapper>(partialUrl);
+
+            var json = Json(places.Places, JsonRequestBehavior.AllowGet);
+
+            return json;
+        }
     }
 }

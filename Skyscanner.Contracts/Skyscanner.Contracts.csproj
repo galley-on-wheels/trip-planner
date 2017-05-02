@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GeoCatalog\GeoCatalog.cs" />
+    <Compile Include="Places\Places.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Countries\CountriesWrapper.cs" />
     <Compile Include="Settings\Countries\Country.cs" />
