@@ -19,7 +19,7 @@ namespace Tripper.Implementation.Search
         {
             var httpClient = new HttpClient();
 
-            var url = string.Format(CultureInfo.CurrentCulture, @"{0}{1}?apiKey={2}", ApiEndpoint, partialUrl, ApiKey);
+            var url = string.Format(CultureInfo.CurrentCulture, @"{0}{1}apiKey={2}", ApiEndpoint, partialUrl, ApiKey);
 
             var response = await httpClient.GetAsync(url);
 
