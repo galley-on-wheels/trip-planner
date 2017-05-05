@@ -211,7 +211,7 @@
   <ItemGroup>
     <Content Include="AngularApps\app.config.js" />
     <Content Include="AngularApps\app.js" />
-    <Content Include="AngularApps\show-during-resolve\show-during-resolve.directive.js" />
+    <Content Include="AngularApps\resolve-loader\resolve-loader.js" />
     <Content Include="AngularApps\tabs\blank\blankController.js" />
     <Content Include="AngularApps\tabs\dashboard\dashboardController.js" />
     <Content Include="AngularApps\tabs\history\historyController.js" />

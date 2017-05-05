@@ -4,34 +4,50 @@
     function config($locationProvider, $routeProvider) {
         //$locationProvider.hashPrefix('!');
 
+        var delayObj = 
+            {
+                delay: function ($q, $timeout) {
+                    var delay = $q.defer();
+                    $timeout(delay.resolve, 1500);
+                    return delay.promise;
+                }
+            }
+
         $routeProvider
         .when("/", {
             templateUrl: "/dashboard/search",
-            controller: "searchController"
+            controller: "searchController",
+            resolve: delayObj
         })
         .when("/dashboard", {
             templateUrl: "/dashboard/dashboard",
-            controller: "dashboardController"
+            controller: "dashboardController",
+            resolve: delayObj
         })
         .when("/search", {
             templateUrl: "/dashboard/search",
-            controller: "searchController"
+            controller: "searchController",
+            resolve: delayObj
         })
         .when("/history", {
             templateUrl: "/dashboard/history",
-            controller: "historyController"
+            controller: "historyController",
+            resolve: delayObj
         })
         .when("/profile", {
             templateUrl: "/dashboard/userProfile",
-            controller: "profileController"
+            controller: "profileController",
+            resolve: delayObj
         })
         .when("/settings", {
             templateUrl: "/dashboard/settings",
-            controller: "settingsController"
+            controller: "settingsController",
+            resolve: delayObj
         })
         .otherwise({
             templateUrl: "/dashboard/blank",
-            controller: "blankController"
+            controller: "blankController",
+            resolve: delayObj
         });
     }
   ]);
