@@ -95,26 +95,26 @@
         
         <br /> <br />
 
-        <md-datepicker ng-model="birthday"></md-datepicker>
+        <md-datepicker name="outboundDate" ng-model="outboundDate"></md-datepicker>
 
-        <md-datepicker ng-model="birthdaySecond"></md-datepicker>
+        <md-datepicker name="inboundDate" ng-model="inboundDate"></md-datepicker>
 
         <br /> <br />
         
         Adults:
-        <md-slider md-discrete ng-model="adults" step="1" min="1" max="8">
+        <md-slider md-discrete name="adults" ng-model="adults" step="1" min="1" max="8">
         </md-slider>
         
         Children:
-        <md-slider md-discrete ng-model="children" step="1" min="0" max="8">
+        <md-slider md-discrete name="children" ng-model="children" step="1" min="0" max="8">
         </md-slider>
 
         Infants:
-        <md-slider md-discrete ng-model="infants" step="1" min="0" max="8">
+        <md-slider md-discrete name="infants" ng-model="infants" step="1" min="0" max="8">
         </md-slider>
         
         <p>Cabin class :</p>
-        <select class="form-control" name="cabin-class" ng-model="settings.cabinClass">
+        <select class="form-control" name="cabinClass" ng-model="settings.cabinClass">
             <option value="" disabled selected>Any</option>
             <option ng-repeat="cabinClass in cabinClasses" value="{{cabinClass.Code}}">{{cabinClass.Name}}</option>
         </select>
@@ -122,6 +122,6 @@
 
         <br /> <br />
 
-        <button type="submit" class="btn btn-default">GO</button>
+        <button ng-click="submitForm()" type="submit" class="btn btn-default">GO</button>
     </form>
 </div>

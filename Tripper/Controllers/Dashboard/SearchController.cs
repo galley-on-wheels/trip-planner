@@ -14,6 +14,7 @@ using Skyscanner.Contracts.Settings.Currencies;
 using Skyscanner.Contracts.Settings.Locales;
 using Tripper.Contracts.Search;
 using Tripper.Implementation.Search;
+using Tripper.Models.TripSearch;
 
 namespace Tripper.Controllers.Dashboard
 {
@@ -76,6 +77,14 @@ namespace Tripper.Controllers.Dashboard
             var json = Json(places.Places, JsonRequestBehavior.AllowGet);
 
             return json;
+        }
+
+        [HttpPost]
+        public JsonResult GetItinerariesByTripDescription(CreateSessionViewModel viewModel)
+        {
+
+
+            return Json(new {});
         }
     }
 }
