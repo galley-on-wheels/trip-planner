@@ -3,7 +3,7 @@
     return {
         restrict: 'E',
         replace: true,
-        template: '<div class="alert alert-success ng-hide"><strong>Welcome!</strong> Content is loading, please hold.</div>',
+        template: '<div class="alert alert-success ng-hide"><strong>Wait a second...<br> </strong> Content is loading</div>',
         link: function (scope, element) {
 
             $rootScope.$on('$routeChangeStart', function (event, currentRoute, previousRoute) {

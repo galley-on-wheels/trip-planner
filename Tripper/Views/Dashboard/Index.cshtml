@@ -30,7 +30,7 @@
     
     <!--Angular JS and Angular app files-->
     <!-- Angular Material requires Angular.js Libraries -->
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
@@ -58,7 +58,8 @@
     <!-- -->
     
     <!--The resolver directive-->
-    <script src="~/AngularApps/show-during-resolve/show-during-resolve.directive.js"></script>
+
+    <script src="~/AngularApps/resolve-loader/resolve-loader.js"></script>
     <!---->
     
     <!-- Latest compiled and minified CSS -->
@@ -76,80 +77,97 @@
     
     <!--Spinner styles-->
     <link href="~/Content/Utilities/spinner.css" rel="stylesheet" />
+    
+    <<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/loaders.css/0.1.2/loaders.min.css" />
+    <script src="~/Scripts/Dashboard/angular-loaders.js"></script>
+    <style>
+        .ball-grid-pulse > div {
+            background-color: #00ced1;
+        }
+
+        .ball-grid-pulse {
+            position: fixed;
+            top: 30%;
+            left: 45%;
+            zoom: 300%;
+            z-index: 101;
+        }
+    </style>
 </head>
 
 <body ng-app="mainApp" class="w3-light-grey">
+    
+<!-- Top container -->
+<div id="top-bar" class="w3-bar w3-top w3-large" style="z-index: 1">
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> Menu</button>
+    <a id="company-title" class="w3-bar-item w3-tangerine" href="@Url.Action("Index", "Landing")">Galley on Wheels</a>
+    <a id="product-title" class="w3-bar-item w3-tangerine" href="@Url.Action("Index", "Landing")">Tripper</a>
+</div>
 
-    <!-- Top container -->
-    <div id="top-bar" class="w3-bar w3-top w3-large" style="z-index: 1">
-        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> Menu</button>
-        <a id="company-title" class="w3-bar-item w3-tangerine" href="@Url.Action("Index", "Landing")">Galley on Wheels</a>
-        <a id="product-title" class="w3-bar-item w3-tangerine" href="@Url.Action("Index", "Landing")">Tripper</a>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index: 3; width: 300px;" id="mySidebar">
+    <br>
+    <div class="w3-container w3-row">
+        <div class="w3-col s4">
+            <i class="fa fa-3x fa-user-circle w3-circle w3-margin-right" style="width: 46px"></i>
+        </div>
+        <div id="main-control-elements" class="w3-col s8 w3-bar">
+            <span>Welcome, <strong>Username</strong></span><br>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
+        </div>
     </div>
-
-    <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index: 3; width: 300px;" id="mySidebar">
-        <br>
-        <div class="w3-container w3-row">
-            <div class="w3-col s4">
-                <i class="fa fa-3x fa-user-circle w3-circle w3-margin-right" style="width: 46px"></i>
-            </div>
-            <div id="main-control-elements" class="w3-col s8 w3-bar">
-                <span>Welcome, <strong>Username</strong></span><br>
-                <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
-                <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
-            </div>
-        </div>
-        <hr>
-        <div class="w3-container">
-            <h5>Menu</h5>
-        </div>
-        <div class="w3-bar-block">
-            <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Close"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
-            <a href="#/" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
-            <a href="#/search" class="w3-bar-item w3-button w3-padding w3-blue" onclick="w3_close()"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
-            <a href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
-            <a href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
-            <a href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
-        </div>
-    </nav>
-
-
-    <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor: pointer" title="Close" id="myOverlay"></div>
-
-    <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left: 300px; margin-top: 43px;">
-
-        <ng-view></ng-view>
-        
+    <hr>
+    <div class="w3-container">
+        <h5>Menu</h5>
     </div>
+    <div class="w3-bar-block">
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Close"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
+        <a href="#/dashboard" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
+        <a href="#/search" class="w3-bar-item w3-button w3-padding w3-blue" onclick="w3_close()"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
+        <a href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
+        <a href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
+        <a href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
+        <a href="#" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
+    </div>
+</nav>
 
-    <script>
-        // Get the Sidebar
-        var mySidebar = document.getElementById("mySidebar");
 
-        // Get the DIV with overlay effect
-        var overlayBg = document.getElementById("myOverlay");
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor: pointer" title="Close" id="myOverlay"></div>
 
-        // Toggle between showing and hiding the sidebar, and add overlay effect
-        function w3_open() {
-            if (mySidebar.style.display === 'block') {
-                mySidebar.style.display = 'none';
-                overlayBg.style.display = "none";
-            } else {
-                mySidebar.style.display = 'block';
-                overlayBg.style.display = "block";
-            }
-        }
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left: 300px; margin-top: 43px;">
+    <resolve-loader></resolve-loader>
+   
+    <ng-view class="fadein"></ng-view>
+</div>
 
-        // Close the sidebar with the close button
-        function w3_close() {
-            mySidebar.style.display = "none";
+<script>
+    // Get the Sidebar
+    var mySidebar = document.getElementById("mySidebar");
+
+    // Get the DIV with overlay effect
+    var overlayBg = document.getElementById("myOverlay");
+
+    // Toggle between showing and hiding the sidebar, and add overlay effect
+    function w3_open() {
+        if (mySidebar.style.display === 'block') {
+            mySidebar.style.display = 'none';
             overlayBg.style.display = "none";
+        } else {
+            mySidebar.style.display = 'block';
+            overlayBg.style.display = "block";
         }
-    </script>
+    }
+
+    // Close the sidebar with the close button
+    function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+    }
+</script>
+    
 
 </body>
 </html>
