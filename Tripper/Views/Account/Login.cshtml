@@ -2,6 +2,7 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in";
+    ViewBag.ReturnUrl = @Url.Action("Index", "Dashboard");
     Layout = "~\\Views\\Shared\\_DashboardLayout.cshtml";
 }
 <style>
