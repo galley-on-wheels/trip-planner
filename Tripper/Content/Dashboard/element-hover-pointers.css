@@ -1,0 +1,6 @@
+﻿md-slider .md-focus-ring !important {
+    cursor: pointer !important;
+}
+md-slider .md-sign {
+    cursor: pointer !important;
+}
