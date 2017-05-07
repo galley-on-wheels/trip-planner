@@ -110,17 +110,24 @@
     <br>
     <div class="w3-container w3-row">
         <div class="w3-col s4">
-            <i class="fa fa-3x fa-user-circle w3-circle w3-margin-right" style="width: 46px"></i>
+            <i data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to change your avatar" class="fa fa-3x fa-user-circle w3-circle w3-margin-right" style="width: 46px"></i>
         </div>
         <div id="main-control-elements" class="w3-col s8 w3-bar">
-            <span>Hello, <strong>@User.Identity.GetUserName()</strong></span><br>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
-            <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
+            <span>Hello, <strong>@(Request.IsAuthenticated ? User.Identity.GetUserName() : "Anonymous")</strong></span><br>
+            @if (Request.IsAuthenticated)
+            {
+                <a href="#" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to view your profile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
+                <a href="#" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Configuration" data-content="Click here to change your configuration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                <a data-toggle="popover" data-placement="left" title="Log out" data-trigger="hover" data-content="Click here to log out" href="javascript:document.getElementById('logoutForm').submit()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-power-off fa-2x"></i></a>
+                }
+            }
         </div>
     </div>
     <hr>
     <div class="w3-container">
-        <h5>Menu</h5>
     </div>
     <div class="w3-bar-block">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Close"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
@@ -144,7 +151,7 @@
     <ng-view class="fadein"></ng-view>
 </div>
 
-<script>
+    <script>
     // Get the Sidebar
     var mySidebar = document.getElementById("mySidebar");
 
@@ -167,6 +174,11 @@
         mySidebar.style.display = "none";
         overlayBg.style.display = "none";
     }
+
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+
 </script>
     
 
