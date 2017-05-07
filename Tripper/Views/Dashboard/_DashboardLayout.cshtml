@@ -1,0 +1,184 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tripper - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--W3CSS-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- -->
+    <!--Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+    <!-- -->
+    <!--Custom styles-->
+    <link href="~/Content/Dashboard/custom-styles.css" rel="stylesheet" />
+    <!-- -->
+
+    <link rel="icon"
+          type="image/png"
+          href="https://d30y9cdsu7xlg0.cloudfront.net/png/216559-200.png">
+
+    <!--Angular JS and Angular app files-->
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+    <!---->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
+    <script src="~/AngularApps/app.js"></script>
+    <script src="~/AngularApps/app.config.js"></script>
+    <!-- -->
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.4/angular-material.css" rel="stylesheet" />
+    <!---->
+    <!--The tab controllers-->
+    <script src="~/AngularApps/tabs/blank/blankController.js"></script>
+    <script src="~/AngularApps/tabs/dashboard/dashboardController.js"></script>
+    <script src="~/AngularApps/tabs/history/historyController.js"></script>
+    <script src="~/AngularApps/tabs/profile/profileController.js"></script>
+    <script src="~/AngularApps/tabs/search/searchController.js"></script>
+    <script src="~/AngularApps/tabs/settings/settingsController.js"></script>
+    <!-- -->
+    <!--The resolver directive-->
+
+    <script src="~/AngularApps/resolve-loader/resolve-loader.js"></script>
+    <!---->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--angular-ui-select-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.css">
+
+    <!--Spinner styles-->
+    <link href="~/Content/Utilities/spinner.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/loaders.css/0.1.2/loaders.min.css" />
+    <script src="~/Scripts/Dashboard/angular-loaders.js"></script>
+
+    <!--Side bar controller-->
+    <script src="~/AngularApps/dashboard-sidebar-menu/sidebar.controller.js"></script>
+
+    <style>
+        .ball-grid-pulse > div {
+            background-color: #00ced1;
+        }
+
+        .ball-grid-pulse {
+            position: fixed;
+            top: 30%;
+            left: 45%;
+            zoom: 300%;
+            z-index: 101;
+        }
+    </style>
+</head>
+
+<body ng-app="mainApp" class="w3-light-grey">
+
+    <!-- Top container -->
+    <div id="top-bar" class="w3-bar w3-top w3-large" style="z-index: 1">
+        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> Menu</button>
+        <a id="company-title" class="w3-bar-item w3-tangerine" href="@Url.Action("Index", "Landing")">Galley on Wheels</a>
+        <a id="product-title" class="w3-bar-item w3-tangerine" href="@Url.Action("Index", "Landing")">Tripper</a>
+    </div>
+
+    <!-- Sidebar/menu -->
+    <nav ng-controller="sideBarController" ng-init="isLoggedIn=@((Request.IsAuthenticated ? "true" : "false"))" class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index: 3; width: 300px;" id="mySidebar">
+        <br>
+        <input ng-hide="true" type="text" ng-model="isLoggedIn" />
+        <div class="w3-container w3-row">
+            <div class="w3-col s4">
+                <i data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to change your avatar" class="fa fa-3x fa-user-circle w3-circle w3-margin-right" style="width: 46px"></i>
+            </div>
+            <div id="main-control-elements" class="w3-col s8 w3-bar">
+                <span>Hello, <strong>@(Request.IsAuthenticated ? User.Identity.GetUserName() : "Anonymous")</strong></span><br>
+                <!--Show different sets of tabs for logged in and logged out users-->
+                @if (Request.IsAuthenticated)
+            {
+                    <a href="#" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to view your profile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
+                    <a href="#" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Configuration" data-content="Click here to change your configuration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <a data-toggle="popover" data-placement="left" title="Log out" data-trigger="hover" data-content="Click here to log out" href="javascript:document.getElementById('logoutForm').submit()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-power-off fa-2x"></i></a>
+                    }
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account", new { ReturnUrl = @Url.Action("Index", "Dashboard") })" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Log in" data-content="Click here to log in" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sign-in fa-2x"></i></a>
+                }
+            </div>
+        </div>
+        <hr>
+        <div class="w3-container">
+        </div>
+        <div class="w3-bar-block">
+            <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Close"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
+            <a ng-show="isLoggedIn" href="#/dashboard" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
+            <a href="#/search" class="w3-bar-item w3-button w3-padding w3-blue" onclick="w3_close()"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
+            <a ng-show="isLoggedIn" href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
+            <a ng-show="isLoggedIn" href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
+            <a ng-show="isLoggedIn" href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
+            <a ng-show="isLoggedIn" href="#" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
+        </div>
+    </nav>
+
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor: pointer" title="Close" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left: 300px; margin-top: 43px;">
+        @RenderBody()
+    </div>
+
+    <script>
+        // Get the Sidebar
+        var mySidebar = document.getElementById("mySidebar");
+
+        // Get the DIV with overlay effect
+        var overlayBg = document.getElementById("myOverlay");
+
+        // Toggle between showing and hiding the sidebar, and add overlay effect
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+                overlayBg.style.display = "none";
+            } else {
+                mySidebar.style.display = 'block';
+                overlayBg.style.display = "block";
+            }
+        }
+
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+            overlayBg.style.display = "none";
+        }
+
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover({ delay: { show: 500, hide: 0 } });
+        });
+
+    </script>
+
+
+</body>
+</html>

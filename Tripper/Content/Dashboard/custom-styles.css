@@ -15,13 +15,12 @@
     border-radius: 3px 3px 30px 30px;
     margin-left: 5px;
     margin-right: 5px;
-
     z-index: 100 !important;
 }
 
-#top-bar a {
-    text-decoration: none;
-}
+    #top-bar a {
+        text-decoration: none;
+    }
 
 .w3-main {
     margin-top: 130px !important;
@@ -65,4 +64,5 @@
 
 .w3-sidebar #main-control-elements a:hover {
     background-color: transparent !important;
+    text-decoration: none !important;
 }
