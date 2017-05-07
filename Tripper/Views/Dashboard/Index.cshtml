@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     Layout = null;
 }
 
@@ -112,7 +113,7 @@
             <i class="fa fa-3x fa-user-circle w3-circle w3-margin-right" style="width: 46px"></i>
         </div>
         <div id="main-control-elements" class="w3-col s8 w3-bar">
-            <span>Welcome, <strong>Username</strong></span><br>
+            <span>Hello, <strong>@User.Identity.GetUserName()</strong></span><br>
             <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
             <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
         </div>
