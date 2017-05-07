@@ -239,6 +239,7 @@
     </Content>
     <Content Include="DbConnections.config" />
     <Content Include="emails.config" />
+    <None Include="Properties\PublishProfiles\iisPublish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Dashboard\angular-loaders.js" />
     <Content Include="Scripts\Dashboard\angular-loaders.min.js" />
