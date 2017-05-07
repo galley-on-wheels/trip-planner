@@ -298,7 +298,7 @@
     <Content Include="Views\Dashboard\History.cshtml" />
     <Content Include="Views\Dashboard\Profile.cshtml" />
     <Content Include="Views\Dashboard\Settings.cshtml" />
-    <Content Include="Views\Dashboard\_DashboardLayout.cshtml" />
+    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
