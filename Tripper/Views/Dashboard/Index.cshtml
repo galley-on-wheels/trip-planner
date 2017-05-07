@@ -81,6 +81,10 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/loaders.css/0.1.2/loaders.min.css" />
     <script src="~/Scripts/Dashboard/angular-loaders.js"></script>
+    
+    <!--Side bar controller-->
+    <script src="~/AngularApps/dashboard-sidebar-menu/sidebar.controller.js"></script>
+
     <style>
         .ball-grid-pulse > div {
             background-color: #00ced1;
@@ -106,14 +110,16 @@
 </div>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index: 3; width: 300px;" id="mySidebar">
+<nav ng-controller="sideBarController" ng-init="isLoggedIn=@((Request.IsAuthenticated ? "true" : "false"))" class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index: 3; width: 300px;" id="mySidebar">
     <br>
+    <input ng-hide="true" type="text" ng-model="isLoggedIn"/>
     <div class="w3-container w3-row">
         <div class="w3-col s4">
             <i data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to change your avatar" class="fa fa-3x fa-user-circle w3-circle w3-margin-right" style="width: 46px"></i>
         </div>
         <div id="main-control-elements" class="w3-col s8 w3-bar">
             <span>Hello, <strong>@(Request.IsAuthenticated ? User.Identity.GetUserName() : "Anonymous")</strong></span><br>
+            <!--Show different sets of tabs for logged in and logged out users-->
             @if (Request.IsAuthenticated)
             {
                 <a href="#" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to view your profile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
@@ -124,6 +130,10 @@
                 <a data-toggle="popover" data-placement="left" title="Log out" data-trigger="hover" data-content="Click here to log out" href="javascript:document.getElementById('logoutForm').submit()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-power-off fa-2x"></i></a>
                 }
             }
+            else
+            {
+                <a href="@Url.Action("Login", "Account", new { ReturnUrl = @Url.Action("Index", "Dashboard") })" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Log in" data-content="Click here to log in" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sign-in fa-2x"></i></a>
+            }
         </div>
     </div>
     <hr>
@@ -131,12 +141,12 @@
     </div>
     <div class="w3-bar-block">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Close"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
-        <a href="#/dashboard" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
+        <a ng-show="isLoggedIn" href="#/dashboard" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
         <a href="#/search" class="w3-bar-item w3-button w3-padding w3-blue" onclick="w3_close()"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
-        <a href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
-        <a href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
-        <a href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
+        <a ng-show="isLoggedIn" href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
+        <a ng-show="isLoggedIn" href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
+        <a ng-show="isLoggedIn" href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
+        <a ng-show="isLoggedIn" href="#" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
     </div>
 </nav>
 
@@ -176,7 +186,7 @@
     }
 
     $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').popover({ delay: { show: 500, hide: 0 } });
     });
 
 </script>
