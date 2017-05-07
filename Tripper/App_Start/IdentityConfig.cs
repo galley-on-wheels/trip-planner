@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -11,6 +12,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Tripper.Models;
+using System.Configuration;
 
 namespace Tripper
 {
@@ -18,8 +20,29 @@ namespace Tripper
     {
         public Task SendAsync(IdentityMessage message)
         {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            return Task.Factory.StartNew(() =>
+            {
+                MailMessage mm = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                mm.From = new MailAddress("galleyOnWheels@gmail.com");
+                mm.To.Add(new MailAddress(message.Destination));
+                
+                mm.Subject = message.Subject;
+                mm.Body = message.Body;
+                mm.IsBodyHtml = true;
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                
+                System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
+
+                NetworkCred.UserName = ConfigurationManager.AppSettings["email"];
+                NetworkCred.Password = ConfigurationManager.AppSettings["password"];
+
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+            });
         }
     }
 

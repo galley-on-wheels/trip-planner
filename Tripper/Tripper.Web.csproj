@@ -204,13 +204,14 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TripSearch\CreateSessionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AngularApps\app.config.js" />
     <Content Include="AngularApps\app.js" />
-    <Content Include="AngularApps\show-during-resolve\show-during-resolve.directive.js" />
+    <Content Include="AngularApps\resolve-loader\resolve-loader.js" />
     <Content Include="AngularApps\tabs\blank\blankController.js" />
     <Content Include="AngularApps\tabs\dashboard\dashboardController.js" />
     <Content Include="AngularApps\tabs\history\historyController.js" />
@@ -224,6 +225,7 @@
     <Content Include="Content\Landing\elements-animations.css" />
     <Content Include="Content\Landing\main.css" />
     <Content Include="Content\Landing\parallax.css" />
+    <Content Include="Content\Utilities\spinner.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -236,7 +238,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DbConnections.config" />
+    <Content Include="emails.config" />
+    <Content Include="AngularApps\dashboard-sidebar-menu\sidebar.controller.js" />
+    <None Include="Properties\PublishProfiles\iisPublish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Dashboard\angular-loaders.js" />
+    <Content Include="Scripts\Dashboard\angular-loaders.min.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -291,6 +298,7 @@
     <Content Include="Views\Dashboard\History.cshtml" />
     <Content Include="Views\Dashboard\Profile.cshtml" />
     <Content Include="Views\Dashboard\Settings.cshtml" />
+    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
