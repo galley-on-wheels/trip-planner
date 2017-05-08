@@ -1,12 +1,6 @@
-﻿angular.module('mainApp').controller('sideBarController', function ($scope, $http) {
-
-    $scope.selectedMenuItem = "search";
-
-    $scope.selectMenuItem = function(itemToSelect) {
-        $scope.selectedMenuItem = itemToSelect;
-    }
+﻿angular.module('mainApp').controller('sideBarController', function ($scope, $http, $location) {
 
     $scope.isSelected = function(itemToCheck) {
-        return itemToCheck === $scope.selectedMenuItem;
+        return $location.path().indexOf("#/" + itemToCheck) > -1;
     }
 });

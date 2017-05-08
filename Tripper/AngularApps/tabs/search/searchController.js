@@ -67,12 +67,12 @@
 
         $scope.formData =
         {
-            locale: $scope.settings.locales,
-            currency: $scope.settings.currencies,
-            countries: $scope.settings.countries,
+            locale: $scope.settings.selectedLocale,
+            currency: $scope.settings.selectedCurrency,
+            country: $scope.settings.selectedCountry,
 
-            originPlace: $scope.originPlace.selected,
-            destinationPlace: $scope.destinationPlace.selected,
+            originPlace: $scope.originPlace.selected.PlaceId,
+            destinationPlace: $scope.destinationPlace.selected.PlaceId,
 
             outboundDate: $scope.outboundDate,
             inboundDate: $scope.inboundDate,

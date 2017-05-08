@@ -4,9 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Skyscanner.Contracts.BrowseRoutes;
 using Skyscanner.Contracts.Places;
 using Skyscanner.Contracts.Settings;
 using Skyscanner.Contracts.Settings.Countries;
@@ -80,11 +82,54 @@ namespace Tripper.Controllers.Dashboard
         }
 
         [HttpPost]
-        public JsonResult GetItinerariesByTripDescription(CreateSessionViewModel viewModel)
+        public async Task<JsonResult> GetItinerariesByTripDescription(CreateSessionViewModel viewModel)
         {
+            //var parsedOutboundDate = DateTime.Parse(viewModel.OutboundDate);
 
+            //var parsedInboundDate = DateTime.Parse(viewModel.InboundDate);
 
-            return Json(new {});
+            var parsedOutboundDate = DateTime.Now;
+
+            var parsedInboundDate = DateTime.Now.AddDays(10);
+
+            viewModel.OutboundDate = parsedOutboundDate.ToString("yyyy-MM-dd");
+
+            viewModel.InboundDate = parsedInboundDate.ToString("yyyy-MM-dd");
+
+            /*
+            // Create a session with ScyScanner
+
+            var subUrl = $"pricing/v1.0";
+
+            var content = ToUrlEncodedContent(viewModel);
+
+            string userApi = Request.UserHostAddress;
+            string bodyString = $"cabinclass={viewModel.CabinClass}&country={viewModel.Country}&currency={viewModel.Currency}&locale={viewModel.Locale}&locationSchema=iata&originplace={viewModel.OriginPlace}&destinationplace={viewModel.DestinationPlace}&outbounddate={viewModel.OutboundDate}&inbounddate={viewModel.InboundDate}&adults={viewModel.Adults}&children={viewModel.Children}&infants={viewModel.Infants}";
+            string locationHeader = await _searchService.GetLocationHeader(subUrl, content, bodyString, userApi);
+            */
+
+            var partialUrl = string.Format(CultureInfo.CurrentCulture, $"apiservices/browseroutes/v1.0/{viewModel.Country}/{viewModel.Currency}/{viewModel.Locale}/{viewModel.OriginPlace}/{viewModel.DestinationPlace}/{viewModel.OutboundDate}/{viewModel.InboundDate}?");
+
+            var routes = await _searchService.GetFromUrl<RoutesWrapper>(partialUrl);
+
+            var json = Json(routes.Routes, JsonRequestBehavior.AllowGet);
+
+            return json;
+        }
+
+        [NonAction]
+        public IEnumerable<KeyValuePair<string, string>> ToUrlEncodedContent(CreateSessionViewModel viewModel)
+        {
+            var kvPairs = new List<KeyValuePair<string, string>>();
+
+            var allProps = viewModel.GetType().GetProperties();
+
+            foreach (var propertyInfo in allProps)
+            {
+                kvPairs.Add(new KeyValuePair<string, string>(propertyInfo.Name, viewModel.GetType().GetProperty(propertyInfo.Name).GetValue(viewModel)?.ToString()?? String.Empty));
+            }
+
+            return kvPairs;
         }
     }
 }

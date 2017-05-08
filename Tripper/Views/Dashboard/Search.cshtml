@@ -115,7 +115,7 @@
         </md-slider>
 
         <p>Cabin class :</p>
-        <select class="form-control" name="cabinClass" ng-model="settings.cabinClass">
+        <select class="form-control" ng-model="cabinClass" name="cabinClass" ng-model="settings.cabinClass">
             <option value="" disabled selected>Any</option>
             <option ng-repeat="cabinClass in cabinClasses" value="{{cabinClass.Code}}">{{cabinClass.Name}}</option>
         </select>
