@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skyscanner.Contracts", "Sky
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripper.Implementation", "Tripper.Implementation\Tripper.Implementation.csproj", "{17AD1315-7341-4563-90F1-7E25CF234C10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripper.DataAccess", "Tripper.DataAccess\Tripper.DataAccess.csproj", "{B678107A-2575-4C68-A883-B3BA0F8BD18E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{17AD1315-7341-4563-90F1-7E25CF234C10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17AD1315-7341-4563-90F1-7E25CF234C10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17AD1315-7341-4563-90F1-7E25CF234C10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B678107A-2575-4C68-A883-B3BA0F8BD18E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B678107A-2575-4C68-A883-B3BA0F8BD18E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B678107A-2575-4C68-A883-B3BA0F8BD18E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B678107A-2575-4C68-A883-B3BA0F8BD18E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
