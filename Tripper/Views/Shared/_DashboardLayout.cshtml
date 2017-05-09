@@ -87,6 +87,14 @@
             zoom: 300%;
             z-index: 101;
         }
+
+        .w3-bar-block a.w3-blue {
+            border-radius: 0px 15px 15px 0px !important;
+        }
+
+        .w3-bar-block a {
+            border-radius: 0px 0px 0px 0px !important;
+        }
     </style>
 </head>
 
@@ -111,9 +119,9 @@
                 <span>Hello, <strong>@(Request.IsAuthenticated ? User.Identity.GetUserName() : "Anonymous")</strong></span><br>
                 <!--Show different sets of tabs for logged in and logged out users-->
                 @if (Request.IsAuthenticated)
-            {
-                    <a href="#" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to view your profile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
-                    <a href="#" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Configuration" data-content="Click here to change your configuration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
+                {
+                    <a ng-click="selectMenuItem('profile')" href="#/profile" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Profile" data-content="Click here to view your profile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-2x"></i></a>
+                    <a ng-click="selectMenuItem('settings')" href="#/settings" data-toggle="popover" data-placement="bottom" data-trigger="hover" title="Configuration" data-content="Click here to change your configuration" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-2x"></i></a>
                     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
                     {
                         @Html.AntiForgeryToken()
@@ -131,11 +139,11 @@
         </div>
         <div class="w3-bar-block">
             <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="Close"><i class="fa fa-remove fa-fw"></i> Close Menu</a>
-            <a ng-show="isLoggedIn" href="#/dashboard" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
-            <a href="#/search" class="w3-bar-item w3-button w3-padding w3-blue" onclick="w3_close()"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
-            <a ng-show="isLoggedIn" href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
-            <a ng-show="isLoggedIn" href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
-            <a ng-show="isLoggedIn" href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
+            <a ng-class="{'w3-blue' : {{isSelected('dashboard')}}}" ng-show="isLoggedIn" href="#/dashboard" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-rss fa-fw"></i> Dashboard</a>
+            <a ng-class="{'w3-blue' : isSelected('search')}" href="#/search" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-search fa-fw"></i> Trip Search</a>
+            <a ng-class="{'w3-blue' : isSelected('history')}" ng-show="isLoggedIn" href="#/history" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-history fa-fw"></i> History</a>
+            <a ng-class="{'w3-blue' : isSelected('profile')}" ng-show="isLoggedIn" href="#/profile" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-user-o fa-fw"></i> Profile</a>
+            <a ng-class="{'w3-blue' : isSelected('settings')}" ng-show="isLoggedIn" href="#/settings" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-cog fa-fw"></i> Settings</a>
             <a ng-show="isLoggedIn" href="#" class="w3-bar-item w3-button w3-padding" onclick="w3_close()"><i class="fa fa-2x fa-sign-out fa-fw"></i> Log out</a>
         </div>
     </nav>

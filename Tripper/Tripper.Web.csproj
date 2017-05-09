@@ -202,7 +202,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TripSearch\CreateSessionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -320,6 +319,10 @@
     <ProjectReference Include="..\Tripper.Contracts\Tripper.Contracts.csproj">
       <Project>{c0d934a5-0e72-4d61-94ee-4fc3ccba10ec}</Project>
       <Name>Tripper.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tripper.DataAccess\Tripper.DataAccess.csproj">
+      <Project>{b678107a-2575-4c68-a883-b3ba0f8bd18e}</Project>
+      <Name>Tripper.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tripper.Implementation\Tripper.Implementation.csproj">
       <Project>{17ad1315-7341-4563-90f1-7e25cf234c10}</Project>
