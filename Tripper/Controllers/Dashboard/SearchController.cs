@@ -88,9 +88,9 @@ namespace Tripper.Controllers.Dashboard
 
             //var parsedInboundDate = DateTime.Parse(viewModel.InboundDate);
 
-            var parsedOutboundDate = DateTime.Now;
+            var parsedOutboundDate = DateTime.Now.AddMonths(1);
 
-            var parsedInboundDate = DateTime.Now.AddDays(10);
+            var parsedInboundDate = DateTime.Now.AddMonths(2);
 
             viewModel.OutboundDate = parsedOutboundDate.ToString("yyyy-MM-dd");
 
@@ -108,11 +108,11 @@ namespace Tripper.Controllers.Dashboard
             string locationHeader = await _searchService.GetLocationHeader(subUrl, content, bodyString, userApi);
             */
 
-            var partialUrl = string.Format(CultureInfo.CurrentCulture, $"apiservices/browseroutes/v1.0/{viewModel.Country}/{viewModel.Currency}/{viewModel.Locale}/{viewModel.OriginPlace}/{viewModel.DestinationPlace}/{viewModel.OutboundDate}/{viewModel.InboundDate}?");
+            var partialUrl = string.Format(CultureInfo.CurrentCulture, $"browseroutes/v1.0/{viewModel.Country}/{viewModel.Currency}/{viewModel.Locale}/{viewModel.OriginPlace}/{viewModel.DestinationPlace}/{viewModel.OutboundDate}/{viewModel.InboundDate}?");
 
             var routes = await _searchService.GetFromUrl<RoutesWrapper>(partialUrl);
 
-            var json = Json(routes.Routes, JsonRequestBehavior.AllowGet);
+            var json = Json(routes, JsonRequestBehavior.AllowGet);
 
             return json;
         }
