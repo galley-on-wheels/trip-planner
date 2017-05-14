@@ -28,7 +28,7 @@
         })
         .then(function (response) {
             $scope.settings.countries = response.data;
-            console.log(JSON.stringify(response.data), false);
+            //console.log(JSON.stringify(response.data), false);
         });
     }
 
@@ -70,10 +70,15 @@
     ];
 
 
+    // search results object
+
+    $scope.searchResults = {};
+    $scope.searchResultsReady = true;
 
     $scope.submitForm = function () {
 
         modal.style.display = "block";
+        $scope.searchResultsReady = false;
 
         $scope.formData =
         {
@@ -101,8 +106,9 @@
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
         .success(function (data) {
-            
-        });
+                $scope.searchResults = data;
+                $scope.searchResultsReady = true;
+            });
     };
 
     
@@ -117,4 +123,6 @@
             modal.style.display = "none";
         }
     }
+
+
 });
