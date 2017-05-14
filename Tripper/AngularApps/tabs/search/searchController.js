@@ -13,13 +13,13 @@
     $http.get("search/GetAvailableCultures")
     .then(function (response) {
         $scope.settings.locales = response.data;
-        console.log(JSON.stringify(response.data), false);
+        //console.log(JSON.stringify(response.data), false);
     });
 
     $http.get("search/GetAvailableCurrencies")
     .then(function (response) {
         $scope.settings.currencies = response.data;
-        console.log(JSON.stringify(response.data), false);
+        //console.log(JSON.stringify(response.data), false);
     });
 
     $scope.loadCountries = function () {
