@@ -84,6 +84,23 @@ namespace Tripper.Controllers.Dashboard
         [HttpPost]
         public async Task<JsonResult> GetItinerariesByTripDescription(CreateSessionViewModel viewModel)
         {
+            // Check defaults
+
+            if (viewModel.Locale == null)
+            {
+                viewModel.Locale = "en-US";
+            }
+
+            if (viewModel.Country == null)
+            {
+                viewModel.Country = "US";
+            }
+
+            if (viewModel.Currency == null)
+            {
+                viewModel.Currency = "USD";
+            }
+
             //var parsedOutboundDate = DateTime.Parse(viewModel.OutboundDate);
 
             //var parsedInboundDate = DateTime.Parse(viewModel.InboundDate);
