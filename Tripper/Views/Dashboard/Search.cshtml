@@ -26,6 +26,11 @@
     }
 </style>
 
+<!--Modal styles-->
+<link href="~/Content/Dashboard/Search/modal-styles.css" rel="stylesheet" />
+<link href="~/Content/Dashboard/Search/card-styles.css" rel="stylesheet" />
+<link href="~/Content/Dashboard/Search/chips-styles.css" rel="stylesheet" />
+
 <div id="form-container">
     <form class="form-inline">
         
@@ -125,4 +130,45 @@
 
         <button ng-click="submitForm()" type="submit" class="btn btn-default">GO</button>
     </form>
+</div>
+
+
+
+
+<!-- The Modal -->
+<div id="searchResultsModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Search results</h2>
+        </div>
+        <div class="modal-body">
+            <div ng-show="!searchResultsReady" id="results-loader" loader-css="ball-grid-pulse">g... </div>
+            <div ng-repeat="quote in searchResults" class="card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Empire_State_Building_%28HDR%29.jpg/150px-Empire_State_Building_%28HDR%29.jpg" alt="Avatar" style="width:100%">
+                <div class="container">
+                    <h4><b>{{quote.MinPrice}}</b></h4>
+                    <p>{{quote.Direct}}</p>
+                    <p>{{quote.QuoteDateTime | date}}</p>
+                </div>
+                <div class="chip">
+                    <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
+                    New York
+                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                </div>
+                <div class="chip">
+                    <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
+                    LA
+                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <h3></h3>
+
+        </div>
+    </div>
+
 </div>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +18,7 @@ using Skyscanner.Contracts.Settings.Locales;
 using Tripper.Contracts.Search;
 using Tripper.Implementation.Search;
 using Tripper.Models.TripSearch;
+using Skyscanner.Contracts.BrowseRoutes.Expanded;
 
 namespace Tripper.Controllers.Dashboard
 {
@@ -84,13 +86,30 @@ namespace Tripper.Controllers.Dashboard
         [HttpPost]
         public async Task<JsonResult> GetItinerariesByTripDescription(CreateSessionViewModel viewModel)
         {
+            // Check defaults
+
+            if (viewModel.Locale == null)
+            {
+                viewModel.Locale = "en-US";
+            }
+
+            if (viewModel.Country == null)
+            {
+                viewModel.Country = "US";
+            }
+
+            if (viewModel.Currency == null)
+            {
+                viewModel.Currency = "USD";
+            }
+
             //var parsedOutboundDate = DateTime.Parse(viewModel.OutboundDate);
 
             //var parsedInboundDate = DateTime.Parse(viewModel.InboundDate);
 
-            var parsedOutboundDate = DateTime.Now;
+            var parsedOutboundDate = DateTime.Now.AddMonths(1);
 
-            var parsedInboundDate = DateTime.Now.AddDays(10);
+            var parsedInboundDate = DateTime.Now.AddMonths(2);
 
             viewModel.OutboundDate = parsedOutboundDate.ToString("yyyy-MM-dd");
 
@@ -108,11 +127,36 @@ namespace Tripper.Controllers.Dashboard
             string locationHeader = await _searchService.GetLocationHeader(subUrl, content, bodyString, userApi);
             */
 
-            var partialUrl = string.Format(CultureInfo.CurrentCulture, $"apiservices/browseroutes/v1.0/{viewModel.Country}/{viewModel.Currency}/{viewModel.Locale}/{viewModel.OriginPlace}/{viewModel.DestinationPlace}/{viewModel.OutboundDate}/{viewModel.InboundDate}?");
+            var partialUrl = string.Format(CultureInfo.CurrentCulture, $"browseroutes/v1.0/{viewModel.Country}/{viewModel.Currency}/{viewModel.Locale}/{viewModel.OriginPlace}/{viewModel.DestinationPlace}/{viewModel.OutboundDate}/{viewModel.InboundDate}?");
 
             var routes = await _searchService.GetFromUrl<RoutesWrapper>(partialUrl);
 
-            var json = Json(routes.Routes, JsonRequestBehavior.AllowGet);
+            // It's a terrible hack to simplify data manipulation on the frontend
+            IEnumerable<QuoteExpanded> quotesExpanded = routes.Quotes.Select(quote => new QuoteExpanded()
+            {
+                QuoteId = quote.QuoteId,
+                MinPrice = quote.MinPrice,
+                Direct = quote.Direct,
+                QuoteDateTime = quote.QuoteDateTime,
+                OutboundLeg = quote.OutboundLeg == null ? null : new OutboundlegExpanded()
+                {
+                    DepartureDate = quote.OutboundLeg.DepartureDate,
+                    Destination = routes.Places.SingleOrDefault(place => quote.OutboundLeg.DestinationId == place.PlaceId),
+                    Origin = routes.Places.SingleOrDefault(place => quote.OutboundLeg.OriginId == place.PlaceId),
+                    Carriers = routes.Carriers.Where(carrier => quote.OutboundLeg.CarrierIds.Contains(carrier.CarrierId)).ToArray()
+                },
+                InboundLeg = quote.InboundLeg == null ? null : new InboundlegExpanded()
+                {
+                    DepartureDate = quote.InboundLeg.DepartureDate,
+                    Destination = routes.Places.SingleOrDefault(place => quote.InboundLeg.DestinationId == place.PlaceId),
+                    Origin = routes.Places.SingleOrDefault(place => quote.InboundLeg.OriginId == place.PlaceId),
+                    Carriers = routes.Carriers.Where(carrier => quote.InboundLeg.CarrierIds.Contains(carrier.CarrierId)).ToArray()
+                }
+            });
+
+            var json = Json(quotesExpanded, JsonRequestBehavior.AllowGet);
+
+            Thread.Sleep(1000);
 
             return json;
         }

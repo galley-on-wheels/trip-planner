@@ -18,19 +18,27 @@ namespace Tripper.Implementation.Search
 
         public async Task<T> GetFromUrl<T>(string partialUrl) where T : class
         {
-            var httpClient = new HttpClient();
+            try
+            {
+                var httpClient = new HttpClient();
 
-            var url = string.Format(CultureInfo.CurrentCulture, @"{0}{1}apiKey={2}", ApiEndpoint, partialUrl, ApiKey);
+                var url = string.Format(CultureInfo.CurrentCulture, @"{0}{1}apiKey={2}", ApiEndpoint, partialUrl, ApiKey);
 
-            httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
-            var response = await httpClient.GetAsync(url);
+                var response = await httpClient.GetAsync(url);
 
-            string responseBody = await response.Content.ReadAsStringAsync();
+                string responseBody = await response.Content.ReadAsStringAsync();
 
-            var resultingObj = JsonConvert.DeserializeObject<T>(responseBody);
+                var resultingObj = JsonConvert.DeserializeObject<T>(responseBody);
 
-            return resultingObj;
+                return resultingObj;
+            }
+            catch (Exception exception)
+            {
+
+                throw;
+            }
         }
 
         public async Task<string> GetLocationHeader(string subUrl, IEnumerable<KeyValuePair<string, string>> kvPairs, string bodyString, string ipAddress)

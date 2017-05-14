@@ -220,6 +220,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Dashboard\custom-styles.css" />
+    <Content Include="Content\Dashboard\Search\card-styles.css" />
+    <Content Include="Content\Dashboard\Search\chips-styles.css" />
+    <Content Include="Content\Dashboard\Search\modal-styles.css" />
     <Content Include="Content\Landing\custom-stylings.css" />
     <Content Include="Content\Landing\elements-animations.css" />
     <Content Include="Content\Landing\main.css" />

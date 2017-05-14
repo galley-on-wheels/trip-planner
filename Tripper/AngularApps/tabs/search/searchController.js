@@ -1,17 +1,25 @@
 ﻿angular.module('mainApp').controller('searchController', function ($scope, $http) {
 
+    // Search results popup setup
+
+    var modal = document.getElementById('searchResultsModal');
+
+    var span = document.getElementsByClassName("close")[0];
+
+    // --
+
     $scope.settings = {};
 
     $http.get("search/GetAvailableCultures")
     .then(function (response) {
         $scope.settings.locales = response.data;
-        console.log(JSON.stringify(response.data), false);
+        //console.log(JSON.stringify(response.data), false);
     });
 
     $http.get("search/GetAvailableCurrencies")
     .then(function (response) {
         $scope.settings.currencies = response.data;
-        console.log(JSON.stringify(response.data), false);
+        //console.log(JSON.stringify(response.data), false);
     });
 
     $scope.loadCountries = function () {
@@ -20,7 +28,7 @@
         })
         .then(function (response) {
             $scope.settings.countries = response.data;
-            console.log(JSON.stringify(response.data), false);
+            //console.log(JSON.stringify(response.data), false);
         });
     }
 
@@ -62,8 +70,15 @@
     ];
 
 
+    // search results object
+
+    $scope.searchResults = {};
+    $scope.searchResultsReady = true;
 
     $scope.submitForm = function () {
+
+        modal.style.display = "block";
+        $scope.searchResultsReady = false;
 
         $scope.formData =
         {
@@ -91,7 +106,23 @@
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
         .success(function (data) {
-            
-        });
+                $scope.searchResults = data;
+                $scope.searchResultsReady = true;
+            });
     };
+
+    
+    // Search results
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+
 });
