@@ -1,5 +1,13 @@
 ﻿angular.module('mainApp').controller('searchController', function ($scope, $http) {
 
+    // Search results popup setup
+
+    var modal = document.getElementById('searchResultsModal');
+
+    var span = document.getElementsByClassName("close")[0];
+
+    // --
+
     $scope.settings = {};
 
     $http.get("search/GetAvailableCultures")
@@ -65,6 +73,8 @@
 
     $scope.submitForm = function () {
 
+        modal.style.display = "block";
+
         $scope.formData =
         {
             locale: $scope.settings.selectedLocale,
@@ -94,4 +104,17 @@
             
         });
     };
+
+    
+    // Search results
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 });
