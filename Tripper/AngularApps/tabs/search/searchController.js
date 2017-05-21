@@ -73,13 +73,15 @@
     // search results object
 
     $scope.searchResults = {};
+    $scope.bookingSearchResults = {};
     $scope.searchResultsReady = true;
+    $scope.bookingSearchResultsReady = true;
 
     $scope.submitForm = function () {
 
         modal.style.display = "block";
         $scope.searchResultsReady = false;
-
+        $scope.bookingSearchResultsReady = false;
         $scope.formData =
         {
             locale: $scope.settings.selectedLocale,
@@ -107,8 +109,20 @@
         })
         .success(function (data) {
                 $scope.searchResults = data;
+                //$scope.bookingSearchResults = data;
                 $scope.searchResultsReady = true;
-            });
+                //$scope.bookingSearchResultsReady = true;
+        });
+
+        $http({
+            method: 'POST',
+            url: 'BookingSearch/GetHotelsByTripDescription'
+        })
+        .success(function (data) {
+            $scope.bookingSearchResults = JSON.parse(data);
+            $scope.bookingSearchResultsReady = true;
+        });
+
     };
 
     
