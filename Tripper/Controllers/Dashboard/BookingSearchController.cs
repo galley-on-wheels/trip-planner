@@ -11,6 +11,7 @@ using Tripper.Contracts.Search;
 using Tripper.Implementation.Search;
 using Tripper.Models.DataAccess;
 using Tripper.Models.TripSearch;
+using Booking.Implementation;
 
 namespace Tripper.Controllers.Dashboard
 {
@@ -26,27 +27,12 @@ namespace Tripper.Controllers.Dashboard
         [HttpPost]
         public JsonResult GetHotelsByTripDescription(CreateSessionViewModel viewModel)
         {
-            AccountInfo info1 = new AccountInfo
-            {
-                FirstName = "Taras",
-                LastName = "Tarasiuk"
-            };
-            AccountInfo info2 = new AccountInfo
-            {
-                FirstName = "Maksym",
-                LastName = "Tishkov"
-            };
-            List<AccountInfo> udemy = new List<AccountInfo> { info1, info2 };
-            //List<Dictionary<string, string>> udemy = new List<Dictionary<string, string>>();
-            //udemy.Add(new Dictionary<string, string>());
-            //udemy[0].Add("name", "Taras");
-            //udemy[0].Add("email", "tarasiuk.taras@gmail.com");
-            //udemy[0].Add("notes", "Funny man");
-            //udemy.Add(new Dictionary<string, string>());
-            //udemy[1].Add("name", "Taras");
-            //udemy[1].Add("email", "tarasiuk.taras@gmail.com");
-            //udemy[1].Add("notes", "Funny man");
-            string data = JsonConvert.SerializeObject(udemy);
+            var bookingFacade = new BookingFacade();
+            DateTime date1 = new DateTime(2017, 06, 11);
+            DateTime date2 = new DateTime(2017, 06, 20);
+            var model = bookingFacade.FindHotels(viewModel.DestinationPlace, date1, date2, Booking.Implementation.Enums.ArrivingMethod.Aeroplane);
+
+            var data = JsonConvert.SerializeObject(model);
 
             var json = Json(data, JsonRequestBehavior.AllowGet);
 

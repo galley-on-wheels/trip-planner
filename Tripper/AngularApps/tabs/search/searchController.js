@@ -109,14 +109,14 @@
         })
         .success(function (data) {
                 $scope.searchResults = data;
-                //$scope.bookingSearchResults = data;
                 $scope.searchResultsReady = true;
-                //$scope.bookingSearchResultsReady = true;
         });
 
         $http({
             method: 'POST',
-            url: 'BookingSearch/GetHotelsByTripDescription'
+            url: 'BookingSearch/GetHotelsByTripDescription',
+            data: $.param($scope.formData),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
         .success(function (data) {
             $scope.bookingSearchResults = JSON.parse(data);

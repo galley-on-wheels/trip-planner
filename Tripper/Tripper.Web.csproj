@@ -327,6 +327,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Booking.Implementation\Booking.Implementation.csproj">
+      <Project>{06d49fc3-e9fa-4ed4-bab7-be90235f56fb}</Project>
+      <Name>Booking.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Skyscanner.Contracts\Skyscanner.Contracts.csproj">
       <Project>{2d4f84c2-31cf-42b6-993f-11cd97e22c6a}</Project>
       <Name>Skyscanner.Contracts</Name>
