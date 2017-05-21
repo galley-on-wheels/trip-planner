@@ -109,4 +109,25 @@ namespace Tripper.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
+
+    public partial class Account
+    {
+        public string Id { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string MiddleName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string CountryCode { get; set; }
+
+        public string LocaleCode { get; set; }
+
+        public string CurrencyCode { get; set; }
+
+        public string Email { get; set; }
+
+        public string PhoneNumber { get; set; }
+    }
 }

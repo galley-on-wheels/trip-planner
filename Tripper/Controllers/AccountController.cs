@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Tripper.Models;
+using Tripper.Repositories;
 
 namespace Tripper.Controllers
 {
@@ -17,9 +18,11 @@ namespace Tripper.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private AccountRepository _repository;
 
         public AccountController()
         {
+            _repository = new AccountRepository(new TripperContext());
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -421,6 +424,20 @@ namespace Tripper.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public JsonResult GetCurrentUserInfo()
+        {
+            string userId = User.Identity.GetUserId();
+            Account account = _repository.GetUserById(UserManager, userId);
+            var accountJson = Json(account, JsonRequestBehavior.AllowGet);
+            return accountJson;
+        }
+
+        public void EditAccount(Account account)
+        {
+            _repository.Edit(account);
         }
 
         #region Helpers

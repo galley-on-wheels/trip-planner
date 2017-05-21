@@ -1,9 +1,73 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+
 @{
     Layout = null;
 }
 
+<style>
+    #form-container {
+        margin: 10px;
+        margin-left: 50px;
+        position: fixed;
+    }
+
+    input:focus {
+        outline: none !important;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .invisible {
+        visibility: hidden
+    }
+</style>
+
 <div show-during-resolve loader-css="ball-grid-pulse"> </div>
 <br />
 
-<h2>Profile</h2>
+
+
+<div id="form-container">
+    <form class="form-inline">
+        <h2>{{firstName}} {{lastName}} Profile</h2>
+        <div show-during-resolve loader-css="ball-grid-pulse">g... </div>
+        <br />
+        
+        <div id="basic-settings" ng-show="!useDefaults">
+            <p>First name</p>
+            <input class="form-control" type="text" ng-model="firstName" ng-disabled="isDisabled"/><br /><br/>
+            <p>Middle name</p>
+            <input class="form-control" type="text" ng-model="middleName" ng-disabled="isDisabled"/><br/><br/>
+            <p>Last name</p>
+            <input class="form-control" type="text" ng-model="lastName" ng-disabled="isDisabled"/><br/><br/>
+            <p>Email</p>
+            <input class="form-control" type="text" ng-model="email" ng-disabled="isDisabled" /><br /><br />
+            <p>Phone number</p>
+            <input class="form-control" type="text" ng-model="phoneNumber" ng-disabled="isDisabled" /><br /><br />
+
+            @*<div class="spinner" ng-class="{'invisible': !loadingOrigin}">
+                <div class="cube1"></div>
+                <div class="cube2"></div>
+            </div>*@
+            <p>Locale</p>
+            <select class="form-control" name="locale" ng-model="settings.selectedLocale" ng-change="loadCountries()" ng-disabled="isDisabled">
+                <option value="" selected>Select your locale</option>
+                <option ng-repeat="locale in settings.locales" value="{{locale.Code}}">{{locale.Name}}</option>
+            </select><br /><br />
+            <p>Currnecy</p>
+            <select class="form-control" name="currency" ng-model="settings.selectedCurrency" ng-disabled="isDisabled">
+                <option value="" selected>Select your currency</option>
+                <option ng-repeat="currency in settings.currencies" value="{{currency.Code}}">{{currency.Symbol}}</option>
+            </select><br /><br />
+            <p>Country</p>
+            <select class="form-control" name="country" ng-model="settings.selectedCountry" ng-disabled="isDisabled">
+                <option value="" selected>Select your country</option>
+                <option ng-repeat="country in settings.countries" value="{{country.Code}}">{{country.Name}}</option>
+            </select>
+        </div>
+        <br /> <br />
+        <button ng-click="edit()" type="button" class="btn btn-default" ng-bind="buttonTitle"></button>
+    </form>
+</div>
