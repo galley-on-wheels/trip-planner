@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using Booking.Implementation.Enums;
 using Booking.Implementation.Models;
+using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
 
 namespace Booking.Implementation
 {
-    public class BookingAccessor : IDisposable
+    internal class BookingAccessor : IDisposable
     {
         private readonly PhantomJSDriver _driver;
 
@@ -114,29 +115,28 @@ namespace Booking.Implementation
             return tripCount;
         }
 
-        public List<BookingItemModel> GetHotels()
+        public HotelsWrapper GetHotels()
         {
-            List<BookingItemModel> hotels = new List<BookingItemModel>(16);
+            var hotelsWrapper = new HotelsWrapper();
+            var hotels = new List<HotelModel>(16);
             try
             {
                 Search();
                 foreach (var hotel in _driver.FindElementsByClassName("sr_item"))
                 {
-                    hotels.Add(new BookingItemModel()
+                    hotels.Add(new HotelModel()
                     {
-                        HotelName = hotel.FindElement(By.ClassName("sr-hotel__name")).Text,
+                        Name = hotel.FindElement(By.ClassName("sr-hotel__name")).Text,
                         Description = hotel.FindElement(By.ClassName("hotel_desc")).Text
-
                     });
                 }
-
+                hotelsWrapper.Hotels = hotels;
             }
             catch (Exception e)
             {
                 //loger.Log
             }
-            return hotels;
-
+            return hotelsWrapper;
         }
 
         #endregion

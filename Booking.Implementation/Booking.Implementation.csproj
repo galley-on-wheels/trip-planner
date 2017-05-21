@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -50,8 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingAccessor.cs" />
+    <Compile Include="BookingFacade.cs" />
     <Compile Include="Enums\ArrivingMethod.cs" />
-    <Compile Include="Models\BookingItemModel.cs" />
+    <Compile Include="IBooking.cs" />
+    <Compile Include="Models\HotelModel.cs" />
+    <Compile Include="Models\HotelsWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
