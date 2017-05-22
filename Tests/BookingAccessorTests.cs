@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Booking.Implementation;
+using Booking.Implementation.Enums;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -55,7 +57,6 @@ namespace Tests
             var container = _webDriver.FindElement(By.ClassName("b-form-group-content__container"));
             var radiobuttons = container.FindElements(By.ClassName("b-booker-type__input"));
             var actualRadioButton = inputValue ? radiobuttons[1] : radiobuttons[0];
-            var value = actualRadioButton.GetAttribute("value");
             //Assert.
             Assert.That(actualRadioButton.Selected, Is.EqualTo(inputValue));
         }

@@ -20,8 +20,8 @@ namespace Booking.Implementation
             _bookingAccessor.SetDirection(location);
             _bookingAccessor.SetTravelingForWork(businessTrip);
             _bookingAccessor.SetArrivingMethod(arrivingMethod);
-            //TODO: add date filtering
-            //_bookingAccessor.SetCheckInDate();
+            _bookingAccessor.SetCheckInDate(fromDate);
+            _bookingAccessor.SetCheckOutDate(toDate);
 
             return _bookingAccessor.GetHotels();
         }

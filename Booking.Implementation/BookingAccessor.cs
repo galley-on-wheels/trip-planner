@@ -69,17 +69,37 @@ namespace Booking.Implementation
             }
         }
 
-        //TODO: inject with JS
-        public void SetCheckInDate()
+        public void SetCheckInDate(DateTime date)
         {
             try
             {
-                _driver.FindElement(By.ClassName("sb-date-field__display")).SendKeys("Thursday 15 February 2018");
+                var dateControl = _driver.FindElements(By.ClassName("sb-date-field__controls"))[0];
+                SetDate(dateControl, date);
             }
             catch (Exception e)
             {
                 //loger.Log
             }
+        }
+
+        public void SetCheckOutDate(DateTime date)
+        {
+            try
+            {
+                var dateControl = _driver.FindElements(By.ClassName("sb-date-field__controls"))[1];
+                SetDate(dateControl, date);
+            }
+            catch (Exception e)
+            {
+                //loger.Log
+            }
+        }
+
+        private void SetDate(IWebElement dateControl, DateTime date)
+        {
+            dateControl.FindElement(By.Name("checkin_monthday")).SendKeys(date.Day.ToString());
+            dateControl.FindElement(By.Name("checkin_month")).SendKeys(date.Month.ToString());
+            dateControl.FindElement(By.Name("checkin_year")).SendKeys(date.Year.ToString());
         }
 
         public void SetArrivingMethod(ArrivingMethod arriving)
