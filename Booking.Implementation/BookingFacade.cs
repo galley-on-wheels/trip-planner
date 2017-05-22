@@ -1,6 +1,7 @@
 ﻿using System;
 using Booking.Implementation.Enums;
 using Booking.Implementation.Models;
+using OpenQA.Selenium.PhantomJS;
 
 namespace Booking.Implementation
 {
@@ -10,7 +11,7 @@ namespace Booking.Implementation
 
         public BookingFacade()
         {
-            _bookingAccessor = new BookingAccessor();
+            _bookingAccessor = new BookingAccessor(new PhantomJSDriver());
         }
 
         public HotelsWrapper FindHotels(string location, DateTime fromDate, DateTime toDate, ArrivingMethod arrivingMethod,
@@ -21,6 +22,7 @@ namespace Booking.Implementation
             _bookingAccessor.SetArrivingMethod(arrivingMethod);
             //TODO: add date filtering
             //_bookingAccessor.SetCheckInDate();
+
             return _bookingAccessor.GetHotels();
         }
     }

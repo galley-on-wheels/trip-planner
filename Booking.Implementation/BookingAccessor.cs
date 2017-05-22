@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using Booking.Implementation.Enums;
 using Booking.Implementation.Models;
-using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.PhantomJS;
 
 namespace Booking.Implementation
 {
-    internal class BookingAccessor : IDisposable
+    public class BookingAccessor : IDisposable
     {
-        private readonly PhantomJSDriver _driver;
+        private readonly IWebDriver _driver;
 
-        public BookingAccessor()
+        public BookingAccessor(IWebDriver webDriver)
         {
-            _driver = new PhantomJSDriver() { Url = "https://booking.com" };
+            _driver = webDriver;
+            _driver.Url = "https://booking.com";
         }
 
         #region Methods
@@ -23,7 +23,9 @@ namespace Booking.Implementation
         {
             try
             {
-                _driver.FindElementByName("ss").SendKeys("London");
+                var webElement = _driver.FindElement(By.Name("ss"));
+                webElement.Clear();
+                webElement.SendKeys(direction);
             }
             catch (Exception e)
             {
@@ -35,10 +37,31 @@ namespace Booking.Implementation
         {
             try
             {
-                var container = _driver.FindElementByClassName("b-form-group-content__container");
+                var container = _driver.FindElement(By.ClassName("b-form-group-content__container"));
                 var radiobuttons = container.FindElements(By.ClassName("b-booker-type__input"));
                 var executableRadioBtn = forWork ? radiobuttons[0] : radiobuttons[1];
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].checked = true;", executableRadioBtn);
+                ((IJavaScriptExecutor) _driver).ExecuteScript("arguments[0].checked = true;", executableRadioBtn);
+            }
+            catch (Exception e)
+            {
+                //loger.Log
+            }
+        }
+
+        public void SetVisitors(int adults, int children)
+        {
+            if (adults <= 0 || children < 0)
+            {
+                return;
+            }
+            try
+            {
+                _driver.FindElement(By.Id("group_adults"))
+                    .FindElement(By.CssSelector($"option[value='{adults}']"))
+                    .Click();
+                _driver.FindElement(By.Id("group_children"))
+                    .FindElement(By.CssSelector($"option[value='{children}']"))
+                    .Click();
             }
             catch (Exception e)
             {
@@ -51,7 +74,7 @@ namespace Booking.Implementation
         {
             try
             {
-                _driver.FindElementByClassName("sb-date-field__display").SendKeys("Thursday 15 February 2018");
+                _driver.FindElement(By.ClassName("sb-date-field__display")).SendKeys("Thursday 15 February 2018");
             }
             catch (Exception e)
             {
@@ -63,7 +86,7 @@ namespace Booking.Implementation
         {
             try
             {
-                var container = _driver.FindElementByClassName("b-sb-travelling-types__options");
+                var container = _driver.FindElement(By.ClassName("b-sb-travelling-types__options"));
                 var radiobuttons = container.FindElements(By.ClassName("b-sb-travelling-types__input"));
 
                 var executableRadioBtn = radiobuttons[0];
@@ -79,7 +102,7 @@ namespace Booking.Implementation
                         executableRadioBtn = radiobuttons[2];
                         break;
                 }
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].checked = true;", executableRadioBtn);
+                ((IJavaScriptExecutor) _driver).ExecuteScript("arguments[0].checked = true;", executableRadioBtn);
             }
             catch (Exception e)
             {
@@ -92,7 +115,7 @@ namespace Booking.Implementation
         {
             try
             {
-                _driver.FindElementByClassName("sb-searchbox__button").Submit();
+                _driver.FindElement(By.ClassName("sb-searchbox__button")).Submit();
             }
             catch (Exception e)
             {
@@ -106,7 +129,7 @@ namespace Booking.Implementation
             try
             {
                 Search();
-                tripCount = _driver.FindElementsByClassName("sr-hotel__name").Count;
+                tripCount = _driver.FindElements(By.ClassName("sr-hotel__name")).Count;
             }
             catch (Exception e)
             {
@@ -122,7 +145,7 @@ namespace Booking.Implementation
             try
             {
                 Search();
-                foreach (var hotel in _driver.FindElementsByClassName("sr_item"))
+                foreach (var hotel in _driver.FindElements(By.ClassName("sr_item")))
                 {
                     hotels.Add(new HotelModel()
                     {
