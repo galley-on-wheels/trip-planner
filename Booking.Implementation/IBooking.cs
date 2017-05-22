@@ -6,6 +6,6 @@ namespace Booking.Implementation
 {
     public interface IBooking
     {
-        HotelsWrapper FindHotels(string location, DateTime fromDate, DateTime toDate, ArrivingMethod arrivingMethod, bool businessTrip = false);
+        HotelsWrapper FindHotels(string location, DateTime fromDate, DateTime toDate, ArrivingMethod arrivingMethod, bool businessTrip = false, int adults = 1, int children = 0);
     }
 }

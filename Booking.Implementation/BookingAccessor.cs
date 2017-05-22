@@ -167,11 +167,7 @@ namespace Booking.Implementation
                 Search();
                 foreach (var hotel in _driver.FindElements(By.ClassName("sr_item")))
                 {
-                    hotels.Add(new HotelModel()
-                    {
-                        Name = hotel.FindElement(By.ClassName("sr-hotel__name")).Text,
-                        Description = hotel.FindElement(By.ClassName("hotel_desc")).Text
-                    });
+                    hotels.Add(GetHotelModel(hotel));
                 }
                 hotelsWrapper.Hotels = hotels;
             }
@@ -180,6 +176,25 @@ namespace Booking.Implementation
                 //loger.Log
             }
             return hotelsWrapper;
+        }
+
+        private HotelModel GetHotelModel(IWebElement hotelControl)
+        {
+            var hotel = new HotelModel();
+            hotel.Name = hotelControl.TryFindElement(By.ClassName("sr-hotel__name"))?.Text;
+            hotel.Description = hotelControl.TryFindElement(By.ClassName("hotel_desc"))?.Text;
+
+            var imageContol = hotelControl.TryFindElement(By.ClassName("hotel_image"));
+            var link = imageContol?.GetAttribute("src");
+            if (!string.IsNullOrEmpty(link))
+            {
+                Uri uri;
+                Uri.TryCreate(link, UriKind.RelativeOrAbsolute, out uri);
+                hotel.ImageLink = uri;
+            }
+
+            hotel.RawPrice = hotelControl.TryFindElement(By.ClassName("site_price"))?.Text;
+            return hotel;
         }
 
         #endregion

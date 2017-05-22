@@ -77,6 +77,25 @@ namespace Tests
             Assert.That(children, Is.EqualTo(inputChildren.ToString()));
         }
 
+        [Test]
+        public void SearchHotels_Test()
+        {
+            //Act.
+            _booking.SetDirection("Rome");
+            _booking.SetCheckInDate(DateTime.Now + TimeSpan.FromDays(3));
+
+            _booking.SetTravelingForWork(false);
+            _booking.SetArrivingMethod(ArrivingMethod.Car);
+            _booking.SetVisitors(2, 2);
+            _booking.SetCheckOutDate(DateTime.Now + TimeSpan.FromDays(5));
+
+            var hotels = _booking.GetHotels(); 
+
+            //Assert.
+            Assert.That(hotels, Is.Not.Null);
+
+        }
+
         //[TearDown]
         //public void ReloadPage()
         //{

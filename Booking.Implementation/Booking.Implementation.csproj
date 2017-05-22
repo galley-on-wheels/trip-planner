@@ -60,6 +60,7 @@
     <Compile Include="Models\HotelModel.cs" />
     <Compile Include="Models\HotelsWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchContentExtension.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
