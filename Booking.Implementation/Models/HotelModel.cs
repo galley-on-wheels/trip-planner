@@ -9,7 +9,6 @@ namespace Booking.Implementation.Models
     {
         private string _rawPrice;
 
-
         [JsonProperty]
         public string Name { get; set; }
 
@@ -17,7 +16,10 @@ namespace Booking.Implementation.Models
         public string Description { get; set; }
 
         [JsonProperty]
-        public int Rank { get; set; }
+        public double Score { get; set; }
+
+        [JsonProperty]
+        public double MaxScore { get; set; } = 10;
 
         [JsonProperty]
         public Uri ImageLink { get; set; }

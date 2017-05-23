@@ -194,7 +194,19 @@ namespace Booking.Implementation
             }
 
             hotel.RawPrice = hotelControl.TryFindElement(By.ClassName("site_price"))?.Text;
+
+            hotel.Score = GetNumericData(hotelControl, "average");
+            //hotel.MaxScore = GetNumericData(hotelControl, "bestRating", "content");
             return hotel;
+        }
+
+        private double GetNumericData(IWebElement hotelControl, string className, string attribute = "")
+        {
+            double data = 0;
+            var element = hotelControl.TryFindElement(By.ClassName(className));
+            string strData = string.IsNullOrEmpty(attribute) ? element?.Text : element?.GetAttribute(attribute);
+            double.TryParse(strData, out data);
+            return data;
         }
 
         #endregion
