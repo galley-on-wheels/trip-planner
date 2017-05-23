@@ -159,11 +159,19 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="chip">
+                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                    {{formatDate(quote.OutboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
+                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                </div>
+                <br/>
                 <div class="chip">
                     <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
                     {{quote.OutboundLeg.Origin.Name}}
                     <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
                 </div>
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 <div class="chip">
                     <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
                     {{quote.OutboundLeg.Destination.Name}}
