@@ -142,28 +142,31 @@
     <div class="modal-content">
         <div class="modal-header">
             <span class="close">&times;</span>
-            <h2>Search results</h2>
+            <h2>Your trip</h2>
         </div>
         <div class="modal-body">
             <div ng-show="!bookingSearchResultsReady" id="results-loader" loader-css="ball-grid-pulse">g... </div>
-            <div ng-repeat="quote in searchResults" class="=card">
+            <div ng-repeat="quote in searchResults" class="card" class="search-result-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Empire_State_Building_%28HDR%29.jpg/150px-Empire_State_Building_%28HDR%29.jpg" alt="Avatar" style="width:100%">
                 <div class="container">
                     <h4><b>{{quote.MinPrice}}</b></h4>
-                    <p>{{quote.Direct}}</p>
-                    <p>{{quote.QuoteDateTime | date}}</p>
-                    <div ng-repeat="quote1 in bookingSearchResults.Hotels" class="card">
-                        <p>{{quote1.Name}}</p>
+                    <span ng-show="quote.Direct" class="label label-primary">Direct</span>
+                    <p>{{formatDate(quote.QuoteDateTime) | date:'MM/dd/yyyy h:mma'}}</p>
+                    <p class="btn btn-default" data-toggle="collapse" data-target="#hotels-list-{{$index}}">View hotels >></p>
+                    <div id="hotels-list-{{$index}}" class="collapse">
+                        <div ng-repeat="quote1 in bookingSearchResults.Hotels">
+                            <a href="#" data-toggle="popover" title={{quote1.Name}} data-trigger="hover" data-content={{quote1.Description}}>{{quote1.Name}}</a>
+                        </div>
                     </div>
                 </div>
                 <div class="chip">
                     <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
-                    New York
+                    {{quote.OutboundLeg.Origin.Name}}
                     <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
                 </div>
                 <div class="chip">
                     <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
-                    LA
+                    {{quote.OutboundLeg.Destination.Name}}
                     <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
                 </div>
             </div>

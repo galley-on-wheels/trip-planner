@@ -123,6 +123,11 @@
             $scope.bookingSearchResultsReady = true;
         });
 
+        $scope.formatDate = function (date) {
+            var dateOut = new Date(date.match(/\d+/)[0] * 1);
+            return dateOut;
+        };
+
     };
 
     
@@ -138,5 +143,7 @@
         }
     }
 
-
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
 });

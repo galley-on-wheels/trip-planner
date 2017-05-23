@@ -135,7 +135,7 @@ namespace Tripper.Controllers.Dashboard
             IEnumerable<QuoteExpanded> quotesExpanded = routes.Quotes.Select(quote => new QuoteExpanded()
             {
                 QuoteId = quote.QuoteId,
-                MinPrice = quote.MinPrice,
+                MinPrice = string.Format(CultureInfo.CurrentCulture, "{0} {1}", quote.MinPrice, routes.Currencies.FirstOrDefault().Symbol),
                 Direct = quote.Direct,
                 QuoteDateTime = quote.QuoteDateTime,
                 OutboundLeg = quote.OutboundLeg == null ? null : new OutboundlegExpanded()
