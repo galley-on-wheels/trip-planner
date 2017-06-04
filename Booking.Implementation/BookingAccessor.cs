@@ -23,7 +23,7 @@ namespace Booking.Implementation
         {
             try
             {
-                _driver.FindElementByName("ss").SendKeys("London");
+                _driver.FindElementByName("ss").SendKeys(direction.Substring(0, direction.Length - 4));
             }
             catch (Exception e)
             {
