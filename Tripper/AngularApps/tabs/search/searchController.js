@@ -73,12 +73,18 @@
     // search results object
 
     $scope.searchResults = {};
+
+    $scope.bookingSearchResults = {};
     $scope.searchResultsReady = true;
+    $scope.bookingSearchResultsReady = true;
+
 
     $scope.submitForm = function () {
 
         modal.style.display = "block";
         $scope.searchResultsReady = false;
+
+        $scope.bookingSearchResultsReady = false;
 
         $scope.formData =
         {
@@ -108,7 +114,23 @@
         .success(function (data) {
                 $scope.searchResults = data;
                 $scope.searchResultsReady = true;
-            });
+        });
+
+        $http({
+            method: 'POST',
+            url: 'BookingSearch/GetHotelsByTripDescription',
+            data: $.param($scope.formData),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+        .success(function (data) {
+            $scope.bookingSearchResults = JSON.parse(data);
+            $scope.bookingSearchResultsReady = true;
+        });
+
+        $scope.formatDate = function (date) {
+            var dateOut = new Date(date.match(/\d+/)[0] * 1);
+            return dateOut;
+        };
     };
 
     
@@ -124,5 +146,8 @@
         }
     }
 
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
 
 });
