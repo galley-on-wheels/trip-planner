@@ -5,7 +5,7 @@ namespace Skyscanner.Contracts.BrowseRoutes.Expanded
     public class QuoteExpanded
     {
         public double QuoteId { get; set; }
-        public double MinPrice { get; set; }
+        public string MinPrice { get; set; }
 
         public bool Direct { get; set; }
         public OutboundlegExpanded OutboundLeg { get; set; }
