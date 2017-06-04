@@ -128,7 +128,12 @@
         });
 
         $scope.formatDate = function (date) {
+            if (typeof date === "undefined") {
+                return new Date();
+            }
+  
             var dateOut = new Date(date.match(/\d+/)[0] * 1);
+
             return dateOut;
         };
     };
