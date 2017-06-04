@@ -18,7 +18,7 @@ namespace Booking.Implementation
             ArrivingMethod arrivingMethod,
             bool businessTrip = false, int adults = 1, int children = 0)
         {
-            _bookingAccessor.SetDirection(location);
+            _bookingAccessor.SetDirection(location.Substring(0, location.Length - 4));
             _bookingAccessor.SetTravelingForWork(businessTrip);
             _bookingAccessor.SetArrivingMethod(arrivingMethod);
             _bookingAccessor.SetCheckInDate(fromDate);
