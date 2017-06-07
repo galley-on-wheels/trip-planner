@@ -138,6 +138,8 @@ namespace Tripper.Controllers.Dashboard
                 
                 MinPrice = string.Format(CultureInfo.CurrentCulture, "{0} {1}", quote.MinPrice, routes.Currencies.FirstOrDefault().Symbol),
 
+                MinPriceNum = quote.MinPrice,
+
                 Direct = quote.Direct,
                 QuoteDateTime = quote.QuoteDateTime,
                 OutboundLeg = quote.OutboundLeg == null ? null : new OutboundlegExpanded()

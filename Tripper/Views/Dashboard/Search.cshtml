@@ -9,16 +9,15 @@
     #form-container {
         margin: 10px;
         margin-left: 50px;
-
         position: absolute;
         overflow-y: scroll;
     }
 
-    #form-container md-slider {
-        position: relative;
-        left: 15px;
-        margin: 20px;
-    }
+        #form-container md-slider {
+            position: relative;
+            left: 15px;
+            margin: 20px;
+        }
 
     input:focus {
         outline: none !important;
@@ -29,7 +28,7 @@
     }
 
     .invisible {
-        visibility: hidden
+        visibility: hidden;
     }
 </style>
 
@@ -70,7 +69,7 @@
                 <option ng-repeat="country in settings.countries" value="{{country.Code}}">{{country.Name}}</option>
             </select>
         </div>
-        <br/> <br/>
+        <br /> <br />
 
 
         <p>Origin :</p>
@@ -89,7 +88,7 @@
             </ui-select-choices>
         </ui-select>
 
-        <br/>
+        <br />
 
         <p>Destination :</p>
         <div class="spinner" ng-class="{'invisible': !loadingDestination}">
@@ -106,18 +105,18 @@
             </ui-select-choices>
         </ui-select>
 
-        <br/> <br/>
+        <br /> <br />
 
         <md-datepicker name="outboundDate" ng-model="outboundDate"></md-datepicker>
 
         <md-datepicker name="inboundDate" ng-model="inboundDate"></md-datepicker>
 
-        <br/> <br/>
+        <br /> <br />
 
         Adults:
         <md-slider md-discrete name="adults" ng-model="adults" step="1" min="1" max="8">
         </md-slider>
-        
+
         Children:
         <md-slider md-discrete name="children" ng-model="children" step="1" min="0" max="8">
         </md-slider>
@@ -132,7 +131,7 @@
             <option ng-repeat="cabinClass in cabinClasses" value="{{cabinClass.Code}}">{{cabinClass.Name}}</option>
         </select>
 
-        <br/> <br/>
+        <br /> <br />
 
         <button ng-click="submitForm()" type="submit" class="btn btn-default">GO</button>
 
@@ -148,21 +147,42 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close">&times;</span>
+            <span class="close close-trip">&times;</span>
             <h2>Your trip</h2>
         </div>
         <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h4>Your budget: </h4>
+                    <input class="form-control" type="text" ng-model="totalBudget" />
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+
             <div ng-show="!bookingSearchResultsReady" id="results-loader" loader-css="ball-grid-pulse">g... </div>
             <div ng-repeat="quote in searchResults" class="card" class="search-result-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Empire_State_Building_%28HDR%29.jpg/150px-Empire_State_Building_%28HDR%29.jpg" alt="Avatar" style="width:100%">
                 <div class="container">
                     <h4><b>{{quote.MinPrice}}</b></h4>
+                    <br />
                     <span ng-show="quote.Direct" class="label label-primary">Direct</span>
-                    <p>{{formatDate(quote.QuoteDateTime) | date:'MM/dd/yyyy h:mma'}}</p>
-                    <p class="btn btn-default" data-toggle="collapse" data-target="#hotels-list-{{$index}}">View hotels >></p>
+                    <br /><br />
+                    <p>Last update: {{formatDate(quote.QuoteDateTime) | date:'MM/dd/yyyy h:mma'}}</p>
+                    <div class="btn btn-default" data-toggle="collapse" data-target="#hotels-list-{{$index}}">
+                        <img ng-show="!bookingSearchResultsReady" src="http://www.est-uh2c.ac.ma/lp/img/load1.gif" alt="Loading..." width="40" height="40">
+                        View hotels >>
+                    </div>
                     <div id="hotels-list-{{$index}}" class="collapse">
                         <div ng-repeat="quote1 in bookingSearchResults.Hotels">
-                            <a href="#" data-toggle="popover" title={{quote1.Name}} data-trigger="hover" data-content={{quote1.Description}}>{{quote1.Name}}</a>
+                            <!--
+                                <a href="#" data-toggle="popover" title={{quote1.Name}} data-trigger="hover" data-content={{quote1.Description}}>{{quote1.Name}}</a>
+                            -->
+
+                            <div class="chip" style="word-wrap: break-word" data-toggle="popover" data-trigger="hover" data-content={{quote1.Description}}>
+                                <img ng-src="{{quote1.ImageLink}}" alt="Hotel" width="50" height="50">
+                                <a>{{quote1.Name}}</a>
+                                <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -172,7 +192,7 @@
                     {{formatDate(quote.OutboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
                     <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
                 </div>
-                <br/>
+                <br />
                 <div class="chip">
                     <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
                     {{quote.OutboundLeg.Origin.Name}}
@@ -193,3 +213,10 @@
     </div>
 
 </div>
+
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>

@@ -1,10 +1,12 @@
 ﻿angular.module('mainApp').controller('searchController', function ($scope, $http) {
 
+    $scope.totalBudget = 1000;
+
     // Search results popup setup
 
-    var modal = document.getElementById('searchResultsModal');
+    var tripModal = document.getElementById('searchResultsModal');
 
-    var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close-trip")[0];
 
     // --
 
@@ -81,7 +83,7 @@
 
     $scope.submitForm = function () {
 
-        modal.style.display = "block";
+        tripModal.style.display = "block";
         $scope.searchResultsReady = false;
 
         $scope.bookingSearchResultsReady = false;
@@ -142,17 +144,12 @@
     // Search results
 
     span.onclick = function () {
-        modal.style.display = "none";
+        tripModal.style.display = "none";
     }
 
     window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target == tripModal) {
+            tripModal.style.display = "none";
         }
     }
-
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-    });
-
 });
