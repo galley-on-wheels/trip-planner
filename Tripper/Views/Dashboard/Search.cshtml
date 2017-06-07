@@ -160,8 +160,8 @@
             </div>
 
             <div ng-show="!bookingSearchResultsReady" id="results-loader" loader-css="ball-grid-pulse">g... </div>
-            <div ng-repeat="quote in searchResults" class="card" class="search-result-card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Empire_State_Building_%28HDR%29.jpg/150px-Empire_State_Building_%28HDR%29.jpg" alt="Avatar" style="width:100%">
+            <div ng-repeat="quote in searchResults" ng-show="quote.MinPriceNum <= totalBudget" class="card search-result-card">
+                <img src="http://static3.businessinsider.com/image/587502c0f10a9ac1348b74b7-1190-625/7-billion-dollar-mega-projects-that-will-transform-new-york-city-by-2035.jpg" alt="Avatar" style="width:100%">
                 <div class="container">
                     <h4><b>{{quote.MinPrice}}</b></h4>
                     <br />
