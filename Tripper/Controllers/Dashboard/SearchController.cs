@@ -156,7 +156,7 @@ namespace Tripper.Controllers.Dashboard
                     Origin = routes.Places.SingleOrDefault(place => quote.InboundLeg.OriginId == place.PlaceId),
                     Carriers = routes.Carriers.Where(carrier => quote.InboundLeg.CarrierIds.Contains(carrier.CarrierId)).ToArray()
                 }
-            });
+            }).Take(50);
 
             var json = Json(quotesExpanded, JsonRequestBehavior.AllowGet);
 
