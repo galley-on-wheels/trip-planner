@@ -195,6 +195,10 @@ namespace Booking.Implementation
 
             hotel.RawPrice = hotelControl.TryFindElement(By.ClassName("site_price"))?.Text;
 
+            // temporary
+
+            hotel.RawPrice = new Random().Next(300, 600).ToString();
+
             hotel.Score = GetNumericData(hotelControl, "average");
             //hotel.MaxScore = GetNumericData(hotelControl, "bestRating", "content");
             return hotel;
