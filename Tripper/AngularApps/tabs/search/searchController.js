@@ -6,7 +6,12 @@
 
     var tripModal = document.getElementById('searchResultsModal');
 
+    // Hotel modal
+
+    var hotelModal = document.getElementById('hotelModal');
+
     var span = document.getElementsByClassName("close-trip")[0];
+    var closeHotel = document.getElementsByClassName("close-hotel")[0];
 
     // --
 
@@ -139,7 +144,6 @@
             return dateOut;
         };
     };
-
     
     // Search results
 
@@ -147,9 +151,29 @@
         tripModal.style.display = "none";
     }
 
+    closeHotel.onclick = function () {
+        hotelModal.style.display = "none";
+    }
+
+
     window.onclick = function (event) {
         if (event.target == tripModal) {
             tripModal.style.display = "none";
         }
+
+        if (event.target == hotelModal) {
+            hotelModal.style.display = "none";
+        }
     }
+
+    // Handle hotel selection
+
+    $scope.currentHotel = null;
+
+    $scope.showHotelInfo = function (hotelIndex) {
+        $scope.currentHotel = $scope.bookingSearchResults.Hotels[hotelIndex];
+
+        hotelModal.style.display = "block";
+    }
+
 });

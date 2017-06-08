@@ -148,7 +148,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <span class="close close-trip">&times;</span>
-            <h2>Your trip</h2>
+            <h2 class="w3-tangerine">Your trip</h2>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -178,31 +178,38 @@
                                 <a href="#" data-toggle="popover" title={{quote1.Name}} data-trigger="hover" data-content={{quote1.Description}}>{{quote1.Name}}</a>
                             -->
 
-                            <div class="chip" style="word-wrap: break-word" data-toggle="popover" data-trigger="hover" data-content={{quote1.Description}}>
-                                <img ng-src="{{quote1.ImageLink}}" alt="Hotel" width="50" height="50">
-                                <a>{{quote1.Name}}</a>
+                            <div class="chip hotel-chip" style="word-wrap: break-word" data-toggle="popover" data-trigger="hover" data-content={{quote1.Description}}>
+                                <img ng-click="showHotelInfo($index)" ng-src="{{quote1.ImageLink}}" alt="Hotel" width="50" height="50">
+                                <a ng-click="showHotelInfo($index)">{{quote1.Name}}</a>
                                 <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="chip">
-                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                    {{formatDate(quote.OutboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
-                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-                </div>
-                <br />
-                <div class="chip">
-                    <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
-                    {{quote.OutboundLeg.Origin.Name}}
-                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-                </div>
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                <div class="chip">
-                    <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
-                    {{quote.OutboundLeg.Destination.Name}}
-                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                <div class="panel panel-default" style="margin: 5px;">
+                    <div class="panel-heading">
+                        Outbound
+                    </div>
+                    <div class="panel-body">
+                        <div class="chip">
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                            {{formatDate(quote.OutboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
+                            <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                        </div>
+                        <br/>
+                        <div class="chip">
+                            <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
+                            {{quote.OutboundLeg.Origin.Name}}
+                            <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                        </div>
+                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        <div class="chip">
+                            <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
+                            {{quote.OutboundLeg.Destination.Name}}
+                            <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -214,6 +221,67 @@
 
 </div>
 
+<!-- The Hotel Modal -->
+<div id="hotelModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close close-hotel">&times;</span>
+            <h2 class="w3-tangerine">{{currentHotel.Name}}</h2>
+        </div>
+        <div class="modal-body">
+            <img ng-src="{{currentHotel.ImageLink}}" alt="Hotel" style="width: 100%">
+            <p>{{currentHotel.Description}}</p>
+        </div>
+        <div class="modal-footer">
+            <h3></h3>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    #hotelModal {
+        padding-left: 40%;
+        padding-right: 40%;
+
+        overflow: hidden;
+    }
+
+    #hotelModal .modal-body {
+        overflow: hidden;
+    }
+
+    #hotelModal .modal-body img:first-of-type {
+        margin: 5px;
+        opacity: 0.5;
+
+        transition: opacity 1s;
+    }
+
+    #hotelModal .modal-body img:hover {
+        opacity: 0.95;
+    }
+
+    .hotel-chip {
+        font-size: 85%;
+    }
+
+
+    #searchResultsModal img:first-of-type {
+        margin: 5px;
+        margin-bottom: 15px;
+        opacity: 0.5;
+
+        transition: opacity 2s;
+    }
+
+    #searchResultsModal img:hover {
+        opacity: 0.95;
+    }
+
+</style>
 
 <script>
     $(document).ready(function () {
