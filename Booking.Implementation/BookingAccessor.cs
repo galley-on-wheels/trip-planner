@@ -197,7 +197,8 @@ namespace Booking.Implementation
 
             // temporary
 
-            hotel.RawPrice = new Random().Next(300, 600).ToString();
+            hotel.Price = new Random().Next(300, 600);
+            hotel.RawPrice = hotel.Price.ToString();
 
             hotel.Score = GetNumericData(hotelControl, "average");
             //hotel.MaxScore = GetNumericData(hotelControl, "bestRating", "content");

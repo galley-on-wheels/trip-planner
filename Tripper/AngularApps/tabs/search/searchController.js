@@ -79,9 +79,9 @@
 
     // search results object
 
-    $scope.searchResults = {};
+    $scope.searchResults = [];
 
-    $scope.bookingSearchResults = {};
+    $scope.bookingSearchResults = [];
     $scope.searchResultsReady = true;
     $scope.bookingSearchResultsReady = true;
 
