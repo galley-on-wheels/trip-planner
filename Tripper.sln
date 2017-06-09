@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tripper.DataAccess", "Tripp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booking.Implementation", "Booking.Implementation\Booking.Implementation.csproj", "{06D49FC3-E9FA-4ED4-BAB7-BE90235F56FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{614869CC-B53D-4578-830F-FA98A089E9A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{06D49FC3-E9FA-4ED4-BAB7-BE90235F56FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06D49FC3-E9FA-4ED4-BAB7-BE90235F56FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06D49FC3-E9FA-4ED4-BAB7-BE90235F56FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{614869CC-B53D-4578-830F-FA98A089E9A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{614869CC-B53D-4578-830F-FA98A089E9A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{614869CC-B53D-4578-830F-FA98A089E9A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{614869CC-B53D-4578-830F-FA98A089E9A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

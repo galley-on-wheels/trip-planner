@@ -138,6 +138,8 @@ namespace Tripper.Controllers.Dashboard
                 
                 MinPrice = string.Format(CultureInfo.CurrentCulture, "{0} {1}", quote.MinPrice, routes.Currencies.FirstOrDefault().Symbol),
 
+                MinPriceNum = quote.MinPrice,
+
                 Direct = quote.Direct,
                 QuoteDateTime = quote.QuoteDateTime,
                 OutboundLeg = quote.OutboundLeg == null ? null : new OutboundlegExpanded()
@@ -154,7 +156,7 @@ namespace Tripper.Controllers.Dashboard
                     Origin = routes.Places.SingleOrDefault(place => quote.InboundLeg.OriginId == place.PlaceId),
                     Carriers = routes.Carriers.Where(carrier => quote.InboundLeg.CarrierIds.Contains(carrier.CarrierId)).ToArray()
                 }
-            });
+            }).Take(50);
 
             var json = Json(quotesExpanded, JsonRequestBehavior.AllowGet);
 

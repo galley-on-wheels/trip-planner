@@ -11,6 +11,7 @@ namespace Skyscanner.Contracts.BrowseRoutes.Expanded
         public OutboundlegExpanded OutboundLeg { get; set; }
         public InboundlegExpanded InboundLeg { get; set; }
         public DateTime QuoteDateTime { get; set; }
+        public double MinPriceNum { get; set; }
     }
 
     public class OutboundlegExpanded

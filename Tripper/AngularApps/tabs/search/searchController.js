@@ -1,10 +1,17 @@
 ﻿angular.module('mainApp').controller('searchController', function ($scope, $http) {
 
+    $scope.totalBudget = 1000;
+
     // Search results popup setup
 
-    var modal = document.getElementById('searchResultsModal');
+    var tripModal = document.getElementById('searchResultsModal');
 
-    var span = document.getElementsByClassName("close")[0];
+    // Hotel modal
+
+    var hotelModal = document.getElementById('hotelModal');
+
+    var span = document.getElementsByClassName("close-trip")[0];
+    var closeHotel = document.getElementsByClassName("close-hotel")[0];
 
     // --
 
@@ -72,16 +79,17 @@
 
     // search results object
 
-    $scope.searchResults = {};
+    $scope.searchResults = [];
 
-    $scope.bookingSearchResults = {};
+    $scope.bookingSearchResults = [];
     $scope.searchResultsReady = true;
     $scope.bookingSearchResultsReady = true;
 
 
     $scope.submitForm = function () {
 
-        modal.style.display = "block";
+        $scope.searchResults = [];
+        tripModal.style.display = "block";
         $scope.searchResultsReady = false;
 
         $scope.bookingSearchResultsReady = false;
@@ -128,26 +136,101 @@
         });
 
         $scope.formatDate = function (date) {
+            if (typeof date === "undefined") {
+                return new Date();
+            }
+  
             var dateOut = new Date(date.match(/\d+/)[0] * 1);
+
             return dateOut;
         };
     };
-
     
     // Search results
 
     span.onclick = function () {
-        modal.style.display = "none";
+        tripModal.style.display = "none";
     }
 
+    closeHotel.onclick = function () {
+        hotelModal.style.display = "none";
+    }
+
+
     window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+        if (event.target == tripModal) {
+            tripModal.style.display = "none";
+        }
+
+        if (event.target == hotelModal) {
+            hotelModal.style.display = "none";
         }
     }
 
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-    });
+    // Handle hotel selection
+
+    $scope.currentHotel = null;
+    // Hack
+    $scope.currentRating = 0;
+
+    $scope.showHotelInfo = function (hotelIndex) {
+        $scope.currentHotel = $scope.bookingSearchResults.Hotels[hotelIndex];
+        $scope.currentRating = $scope.currentHotel.Rating;
+
+        hotelModal.style.display = "block";
+    }
 
 });
+
+
+angular.module('mainApp').controller('RatingController', function ($scope) {
+              this.rating1 = 5.5;//$scope.$parent.currentHotel.Rating;
+
+              this.isReadonly = true;
+              this.rateFunction = function (rating) {
+                  console.log('Rating selected: ' + rating);
+              };
+          })
+          .directive('starRating', function () {
+              return {
+                  restrict: 'EA',
+                  template:
+                    '<ul class="star-rating" ng-class="{readonly: readonly}">' +
+                    '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
+                    '    <i class="fa fa-star"></i>' + // or &#9733
+                    '  </li>' +
+                    '</ul>',
+                  scope: {
+                      ratingValue: '=ngModel',
+                      max: '=?', // optional (default is 5)
+                      onRatingSelect: '&?',
+                      readonly: '=?'
+                  },
+                  link: function (scope, element, attributes) {
+                      if (scope.max == undefined) {
+                          scope.max = 5;
+                      }
+                      function updateStars() {
+                          scope.stars = [];
+                          for (var i = 0; i < scope.max; i++) {
+                              scope.stars.push({
+                                  filled: i < scope.ratingValue
+                              });
+                          }
+                      };
+                      scope.toggle = function (index) {
+                          if (scope.readonly == undefined || scope.readonly === false) {
+                              scope.ratingValue = index + 1;
+                              scope.onRatingSelect({
+                                  rating: index + 1
+                              });
+                          }
+                      };
+                      scope.$watch('ratingValue', function (oldValue, newValue) {
+                          if (newValue || newValue === 0) {
+                              updateStars();
+                          }
+                      });
+                  }
+              };
+          });

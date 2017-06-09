@@ -3,15 +3,24 @@
     Layout = null;
 }
 
+<script>
 
+    
+</script>
 
 <style>
     #form-container {
         margin: 10px;
         margin-left: 50px;
-
-        position: fixed;
+        position: absolute;
+        overflow-y: scroll;
     }
+
+        #form-container md-slider {
+            position: relative;
+            left: 15px;
+            margin: 20px;
+        }
 
     input:focus {
         outline: none !important;
@@ -22,7 +31,7 @@
     }
 
     .invisible {
-        visibility: hidden
+        visibility: hidden;
     }
 </style>
 
@@ -33,9 +42,9 @@
 
 <div id="form-container">
     <form class="form-inline">
-        
+
         <div show-during-resolve loader-css="ball-grid-pulse">g... </div>
-        <br/>
+        <br />
 
         <md-switch ng-model="useDefaults" aria-label="Finished?">
             Use defaults
@@ -63,7 +72,7 @@
                 <option ng-repeat="country in settings.countries" value="{{country.Code}}">{{country.Name}}</option>
             </select>
         </div>
-        <br/> <br/>
+        <br /> <br />
 
 
         <p>Origin :</p>
@@ -82,7 +91,7 @@
             </ui-select-choices>
         </ui-select>
 
-        <br/>
+        <br />
 
         <p>Destination :</p>
         <div class="spinner" ng-class="{'invisible': !loadingDestination}">
@@ -99,18 +108,18 @@
             </ui-select-choices>
         </ui-select>
 
-        <br/> <br/>
+        <br /> <br />
 
         <md-datepicker name="outboundDate" ng-model="outboundDate"></md-datepicker>
 
         <md-datepicker name="inboundDate" ng-model="inboundDate"></md-datepicker>
 
-        <br/> <br/>
+        <br /> <br />
 
         Adults:
         <md-slider md-discrete name="adults" ng-model="adults" step="1" min="1" max="8">
         </md-slider>
-        
+
         Children:
         <md-slider md-discrete name="children" ng-model="children" step="1" min="0" max="8">
         </md-slider>
@@ -125,7 +134,7 @@
             <option ng-repeat="cabinClass in cabinClasses" value="{{cabinClass.Code}}">{{cabinClass.Name}}</option>
         </select>
 
-        <br/> <br/>
+        <br /> <br />
 
         <button ng-click="submitForm()" type="submit" class="btn btn-default">GO</button>
 
@@ -141,41 +150,112 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span class="close">&times;</span>
-            <h2>Your trip</h2>
+            <span class="close close-trip">&times;</span>
+            <h2 class="w3-tangerine">Your trip</h2>
         </div>
         <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h4>Your budget: </h4>
+                    <input class="form-control" type="text" ng-model="totalBudget" />
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+
             <div ng-show="!bookingSearchResultsReady" id="results-loader" loader-css="ball-grid-pulse">g... </div>
-            <div ng-repeat="quote in searchResults" class="card" class="search-result-card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Empire_State_Building_%28HDR%29.jpg/150px-Empire_State_Building_%28HDR%29.jpg" alt="Avatar" style="width:100%">
-                <div class="container">
-                    <h4><b>{{quote.MinPrice}}</b></h4>
-                    <span ng-show="quote.Direct" class="label label-primary">Direct</span>
-                    <p>{{formatDate(quote.QuoteDateTime) | date:'MM/dd/yyyy h:mma'}}</p>
-                    <p class="btn btn-default" data-toggle="collapse" data-target="#hotels-list-{{$index}}">View hotels >></p>
-                    <div id="hotels-list-{{$index}}" class="collapse">
-                        <div ng-repeat="quote1 in bookingSearchResults.Hotels">
-                            <a href="#" data-toggle="popover" title={{quote1.Name}} data-trigger="hover" data-content={{quote1.Description}}>{{quote1.Name}}</a>
+
+            <div class="row">
+                <div ng-repeat="quote in searchResults | orderBy : 'MinPriceNum'" ng-show="quote.MinPriceNum <= totalBudget" class="card search-result-card col-sm-12 col-md-6 col-lg-4">
+                    <img src="http://static3.businessinsider.com/image/587502c0f10a9ac1348b74b7-1190-625/7-billion-dollar-mega-projects-that-will-transform-new-york-city-by-2035.jpg" alt="Avatar" style="width:100%">
+                    <div>
+                        <h4><b>{{quote.MinPrice}}</b></h4>
+                        <br />
+                        <span ng-show="quote.Direct" class="label label-primary">Direct</span>
+                        <br /><br />
+                        <p>Last update: {{formatDate(quote.QuoteDateTime) | date:'MM/dd/yyyy h:mma'}}</p>
+                        <div class="btn btn-default" data-toggle="collapse" data-target="#hotels-list-{{$index}}">
+                            <img ng-show="!bookingSearchResultsReady" src="http://www.est-uh2c.ac.ma/lp/img/load1.gif" alt="Loading..." width="40" height="40">
+                            View hotels >>
+                        </div>
+                        <div id="hotels-list-{{$index}}" class="collapse">
+                            
+                            <div ng-repeat="quote1 in bookingSearchResults.Hotels" ng-show="quote.MinPriceNum + quote1.Price <= totalBudget">
+                                <!--
+                                    <a href="#" data-toggle="popover" title={{quote1.Name}} data-trigger="hover" data-content={{quote1.Description}}>{{quote1.Name}}</a>
+                                -->
+
+                                <div class="chip hotel-chip" style="word-wrap: break-word" data-toggle="popover" data-trigger="hover" data-content={{quote1.Description}}>
+                                    <img ng-click="showHotelInfo($index)" ng-src="{{quote1.ImageLink}}" alt="Hotel" width="50" height="50">
+                                    <a ng-click="showHotelInfo($index)">{{quote1.Name}}</a>
+                                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="chip">
-                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                    {{formatDate(quote.OutboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
-                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-                </div>
-                <br/>
-                <div class="chip">
-                    <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
-                    {{quote.OutboundLeg.Origin.Name}}
-                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-                </div>
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                <div class="chip">
-                    <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
-                    {{quote.OutboundLeg.Destination.Name}}
-                    <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
+                    <!--Outbound-->
+                    <div class="panel panel-default" style="margin: 2px">
+                        <div class="panel-heading">
+                            Leave
+                        </div>
+                        <div class="panel-body" style="font-size: 65% !important">
+                            <div class="chip">
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                {{formatDate(quote.OutboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                            <br />
+                            <div class="chip">
+                                <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
+                                {{quote.OutboundLeg.Origin.Name}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            <div class="chip">
+                                <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
+                                {{quote.OutboundLeg.Destination.Name}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                            <br />
+                            <div class="chip">
+                                <img src="https://cdn3.iconfinder.com/data/icons/means-of-transport/256/Airplane-512.png" alt="Carrier" width="96" height="96">
+                                {{quote.OutboundLeg.Carriers[0].Name}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Inbound-->
+                    <div ng-show="quote.InboundLeg != null" class="panel panel-default" style="margin: 2px">
+                        <div class="panel-heading">
+                            Return
+                        </div>
+                        <div class="panel-body" style="font-size: 65% !important">
+                            <div class="chip">
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                {{formatDate(quote.InboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                            <br />
+                            <div class="chip">
+                                <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
+                                {{quote.InboundLeg.Origin.Name}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                            <div class="chip">
+                                <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
+                                {{quote.InboundLeg.Destination.Name}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                            <br />
+                            <div class="chip">
+                                <img src="https://cdn3.iconfinder.com/data/icons/means-of-transport/256/Airplane-512.png" alt="Carrier" width="96" height="96">
+                                {{quote.InboundLeg.Carriers[0].Name}}
+                                <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -186,3 +266,101 @@
     </div>
 
 </div>
+
+<!-- The Hotel Modal -->
+<div id="hotelModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close close-hotel">&times;</span>
+            <h2 class="w3-tangerine">{{currentHotel.Name}}</h2>
+        </div>
+        <div class="modal-body" style='font-family: "SlatePro", "Segoe UI", "Lucida Grande", "Sans-Serif"'>
+            <h4><b>{{currentHotel.RawPrice}} $</b></h4>
+
+            <div ng-controller="RatingController as rating" class="container">
+                <div star-rating ng-model="rating.rating1" max="10" on-rating-select="rating.rateFunction(rating)"></div>
+
+                <div><strong>Rating:</strong> {{rating.rating1}}</div>
+            </div>
+
+            <img ng-src="{{currentHotel.ImageLink}}" alt="Hotel" style="width: 100%">
+            <p>{{currentHotel.Description}}</p>
+        </div>
+        <div class="modal-footer">
+            <h3></h3>
+        </div>
+    </div>
+</div>
+
+<style>
+    #hotelModal {
+        padding-left: 35%;
+        padding-right: 35%;
+        overflow: hidden;
+    }
+
+        #hotelModal .modal-body {
+            overflow: hidden;
+        }
+
+            #hotelModal .modal-body img:first-of-type {
+                margin: 5px;
+                opacity: 0.65;
+                transition: opacity 1s;
+            }
+
+            #hotelModal .modal-body img:hover {
+                opacity: 0.95;
+            }
+
+    .hotel-chip {
+        font-size: 85%;
+    }
+
+
+    #searchResultsModal img:first-of-type {
+        margin: 5px;
+        margin-bottom: 15px;
+        opacity: 0.65;
+        transition: opacity 2s;
+    }
+
+    #searchResultsModal img:hover {
+        opacity: 0.95;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+
+
+<style>
+    .star-rating {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
+
+        .star-rating .star {
+            padding: 1px;
+            color: #ddd;
+            font-size: 20px;
+            text-shadow: .05em .05em #aaa;
+            list-style-type: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+            .star-rating .star.filled {
+                color: #fd0;
+            }
+
+        .star-rating.readonly .star.filled {
+            color: #666;
+        }
+</style>

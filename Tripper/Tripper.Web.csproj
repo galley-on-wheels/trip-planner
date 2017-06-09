@@ -253,6 +253,7 @@
     <Content Include="DbConnections.config" />
     <Content Include="emails.config" />
     <Content Include="AngularApps\dashboard-sidebar-menu\sidebar.controller.js" />
+    <None Include="Properties\PublishProfiles\amazon VM.pubxml" />
     <None Include="Properties\PublishProfiles\iisPublish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Dashboard\angular-loaders.js" />
@@ -347,6 +348,9 @@
       <Project>{17ad1315-7341-4563-90f1-7e25cf234c10}</Project>
       <Name>Tripper.Implementation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
