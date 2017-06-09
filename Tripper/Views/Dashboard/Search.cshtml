@@ -188,10 +188,11 @@
                                 </div>
                             </div>
                         </div>
-
+                        
+                        <!--Outbound-->
                         <div class="panel panel-default" style="margin: 2px">
                             <div class="panel-heading">
-                                Outbound
+                                Leave
                             </div>
                             <div class="panel-body" style="font-size: 65% !important">
                                 <div class="chip">
@@ -209,6 +210,44 @@
                                 <div class="chip">
                                     <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
                                     {{quote.OutboundLeg.Destination.Name}}
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                                </div>
+                                <br />
+                                <div class="chip">
+                                    <img src="https://cdn3.iconfinder.com/data/icons/means-of-transport/256/Airplane-512.png" alt="Carrier" width="96" height="96">
+                                    {{quote.OutboundLeg.Carriers[0].Name}}
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!--Inbound-->
+                        <div ng-show="quote.InboundLeg != null" class="panel panel-default" style="margin: 2px">
+                            <div class="panel-heading">
+                                Return
+                            </div>
+                            <div class="panel-body" style="font-size: 65% !important">
+                                <div class="chip">
+                                    <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                    {{formatDate(quote.InboundLeg.DepartureDate) | date:'MM/dd/yyyy h:mma'}}
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                                </div>
+                                <br />
+                                <div class="chip">
+                                    <img src="http://www3.hilton.com/resources/media/hi/LAXAHHH/en_US/img/shared/full_page_image_gallery/main/HH_santamonicapier_18_1270x560_FitToBoxSmallDimension_Center.jpg" alt="Person" width="96" height="96">
+                                    {{quote.InboundLeg.Origin.Name}}
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                                </div>
+                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                <div class="chip">
+                                    <img src="http://www.lapdonline.org/assets/jpg/los-angeles-by-josh-harris-large.jpg" alt="Person" width="96" height="96">
+                                    {{quote.InboundLeg.Destination.Name}}
+                                    <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
+                                </div>
+                                <br />
+                                <div class="chip">
+                                    <img src="https://cdn3.iconfinder.com/data/icons/means-of-transport/256/Airplane-512.png" alt="Carrier" width="96" height="96">
+                                    {{quote.InboundLeg.Carriers[0].Name}}
                                     <span class="closebtn" onclick="this.parentElement.style.display = 'none'">&times;</span>
                                 </div>
                             </div>

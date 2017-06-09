@@ -88,6 +88,7 @@
 
     $scope.submitForm = function () {
 
+        $scope.searchResults = [];
         tripModal.style.display = "block";
         $scope.searchResultsReady = false;
 
