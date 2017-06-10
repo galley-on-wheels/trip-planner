@@ -280,13 +280,15 @@
             <h4><b>{{currentHotel.RawPrice}} $</b></h4>
 
             <div ng-controller="RatingController as rating" class="container">
-                <div star-rating ng-model="rating.rating1" max="10" on-rating-select="rating.rateFunction(rating)"></div>
+                <div star-rating ng-model="ratingObj.rating1" max="10" on-rating-select="rating.rateFunction(rating)"></div>
 
-                <div><strong>Rating:</strong> {{rating.rating1}}</div>
+                <div><strong>Rating:</strong> {{ratingObj.rating1}}</div>
             </div>
 
             <img ng-src="{{currentHotel.ImageLink}}" alt="Hotel" style="width: 100%">
             <p>{{currentHotel.Description}}</p>
+            <br />
+            <a class="btn btn-default" src="{{currentHotel.BookingLink}}" alt="Hotel">Book</a>
         </div>
         <div class="modal-footer">
             <h3></h3>

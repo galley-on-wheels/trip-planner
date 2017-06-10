@@ -6,4 +6,89 @@
 <div show-during-resolve loader-css="ball-grid-pulse"> </div>
 <br />
 
-History
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+<style>
+    #history-table {
+        margin: 10px;
+    }
+
+    th span {
+        outline: none;
+    }
+
+    button {
+        margin: 10px;
+    }
+</style>
+
+<button class="btn btn-default" ng-click="refreshHistory()"><span class="glyphicon glyphicon-refresh"></span> Refresh history</button>
+
+<button class="btn btn-default" ng-click="removeHistory()"><span class="glyphicon glyphicon-remove"></span> Remove history</button>
+
+<table class="table table-striped" id="history-table">
+    <thead>
+        <tr>
+            <th>
+                <span href="#" ng-click="sortType = 'OriginPlace'">
+                    Origin
+                    <span ng-show="sortType == 'OriginPlace'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+            <th>
+                <span href="#" ng-click="sortType = 'DestinationPlace'">
+                    Destination
+                    <span ng-show="sortType == 'DestinationPlace'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+            <th>
+                <span href="#" ng-click="sortType = 'OutboundDate'">
+                    Leave date
+                    <span ng-show="sortType == 'OutboundDate'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+            <th>
+                <span href="#" ng-click="sortType = 'InboundDate'">
+                    Return date
+                    <span ng-show="sortType == 'InboundDate'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+            <th>
+                <span href="#" ng-click="sortType = 'CabinClass'">
+                    Cabin class
+                    <span ng-show="sortType == 'CabinClass'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+            <th>
+                <span href="#" ng-click="sortType = 'Adults'">
+                    Adults
+                    <span ng-show="sortType == 'Adults'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+            <th>
+                <span href="#" ng-click="sortType = 'Children'">
+                    Children
+                    <span ng-show="sortType == 'Children'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+            <th>
+                <span href="#" ng-click="sortType = 'Infants'">
+                    Infants
+                    <span ng-show="sortType == 'Infants'" class="fa fa-caret-down"></span>
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="historyRecord in userHistory|orderBy:sortType:false">
+            <td>{{ historyRecord.OriginPlace }}</td>
+            <td>{{ historyRecord.DestinationPlace }}</td>
+            <td>{{ historyRecord.OutboundDate }}</td>
+            <td>{{ historyRecord.InboundDate }}</td>
+            <td>{{ historyRecord.CabinClass }}</td>
+            <td>{{ historyRecord.Adults }}</td>
+            <td>{{ historyRecord.Children }}</td>
+            <td>{{ historyRecord.Infants }}</td>
+        </tr>
+    </tbody>
+</table>

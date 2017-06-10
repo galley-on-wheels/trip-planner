@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Skyscanner.Contracts.BrowseRoutes;
 using Skyscanner.Contracts.Places;
 using Skyscanner.Contracts.Settings;
@@ -19,6 +20,7 @@ using Tripper.Contracts.Search;
 using Tripper.Implementation.Search;
 using Tripper.Models.TripSearch;
 using Skyscanner.Contracts.BrowseRoutes.Expanded;
+using Tripper.Implementation;
 
 namespace Tripper.Controllers.Dashboard
 {
@@ -114,6 +116,13 @@ namespace Tripper.Controllers.Dashboard
             viewModel.OutboundDate = parsedOutboundDate.ToString("yyyy-MM-dd");
 
             viewModel.InboundDate = parsedInboundDate.ToString("yyyy-MM-dd");
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var id = User.Identity.GetUserId();
+
+                HistoryService.AddHistoryRecord(viewModel, id);
+            }
 
             /*
             // Create a session with ScyScanner
