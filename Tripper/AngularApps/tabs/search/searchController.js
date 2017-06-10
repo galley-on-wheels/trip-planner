@@ -173,18 +173,23 @@
     // Hack
     $scope.currentRating = 0;
 
+    $scope.ratingObj = {};
+    $scope.ratingObj.rating1 = 5;
+
     $scope.showHotelInfo = function (hotelIndex) {
         $scope.currentHotel = $scope.bookingSearchResults.Hotels[hotelIndex];
-        $scope.currentRating = $scope.currentHotel.Rating;
+        $scope.ratingObj.rating1 = $scope.currentHotel.Score;
 
         hotelModal.style.display = "block";
     }
 
+    
 });
 
 
 angular.module('mainApp').controller('RatingController', function ($scope) {
-              this.rating1 = 5.5;//$scope.$parent.currentHotel.Rating;
+              // For testing purposes
+              //$scope.$parent.currentHotel.Rating;
 
               this.isReadonly = true;
               this.rateFunction = function (rating) {
