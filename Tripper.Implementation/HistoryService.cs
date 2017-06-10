@@ -35,5 +35,15 @@ namespace Tripper.Implementation
 
             return userHistory;
         }
+
+        public static void RemoveHistory(string userId)
+        {
+            List<CreateSessionViewModel> userHistory;
+
+            if (allHistory.TryGetValue(userId, out userHistory))
+            {
+                allHistory[userId] = new List<CreateSessionViewModel>();
+            }
+        }
     }
 }

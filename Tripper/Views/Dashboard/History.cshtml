@@ -16,7 +16,15 @@
     th span {
         outline: none;
     }
+
+    button {
+        margin: 10px;
+    }
 </style>
+
+<button class="btn btn-default" ng-click="refreshHistory()"><span class="glyphicon glyphicon-refresh"></span> Refresh history</button>
+
+<button class="btn btn-default" ng-click="removeHistory()"><span class="glyphicon glyphicon-remove"></span> Remove history</button>
 
 <table class="table table-striped" id="history-table">
     <thead>

@@ -32,5 +32,16 @@ namespace Tripper.Controllers
 
             return json;
         }
+
+        [HttpPost]
+        public void RemoveHistory()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var id = User.Identity.GetUserId();
+
+                HistoryService.RemoveHistory(id);
+            }
+        }
     }
 }

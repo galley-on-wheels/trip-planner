@@ -16,4 +16,14 @@
               $scope.userHistory = response.data;
           });
     }
+
+    $scope.removeHistory = function () {
+        $http({
+            method: 'POST',
+            url: 'History/RemoveHistory',
+        })
+        .success(function (data) {
+            $scope.userHistory = [];
+        });
+    }
 });
