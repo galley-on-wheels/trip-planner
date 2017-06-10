@@ -26,4 +26,6 @@
             $scope.userHistory = [];
         });
     }
+
+    refresh();
 });
