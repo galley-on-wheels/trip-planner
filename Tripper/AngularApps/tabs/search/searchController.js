@@ -1,6 +1,8 @@
 ﻿angular.module('mainApp').controller('searchController', function ($scope, $http) {
 
     $scope.totalBudget = 1000;
+    $scope.outboundDate = new Date();
+    $scope.inboundDate = new Date();
 
     // Search results popup setup
 
@@ -103,8 +105,8 @@
             originPlace: $scope.originPlace.selected.PlaceId,
             destinationPlace: $scope.destinationPlace.selected.PlaceId,
 
-            outboundDate: $scope.outboundDate,
-            inboundDate: $scope.inboundDate,
+            outboundDate: $scope.outboundDate.toISOString().substring(0, 10),
+            inboundDate: $scope.inboundDate.toISOString().substring(0, 10),
 
             adults: $scope.adults,
             children: $scope.children,

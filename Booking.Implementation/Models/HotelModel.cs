@@ -25,6 +25,9 @@ namespace Booking.Implementation.Models
         public Uri ImageLink { get; set; }
 
         [JsonProperty]
+        public Uri HotelBookingUri { get; set; }
+
+        [JsonProperty]
         public string RawPrice
         {
             get { return _rawPrice; }

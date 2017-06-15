@@ -73,8 +73,9 @@ namespace Booking.Implementation
         {
             try
             {
-                var dateControl = _driver.FindElements(By.ClassName("sb-date-field__controls"))[0];
-                SetDate(dateControl, date);
+                var control = _driver.FindElement(By.ClassName("sb-dates__grid"));
+                var dateControl = control.FindElements(By.ClassName("sb-date-field__controls"));
+                SetDate(dateControl[0], date, "in");
             }
             catch (Exception e)
             {
@@ -86,8 +87,9 @@ namespace Booking.Implementation
         {
             try
             {
-                var dateControl = _driver.FindElements(By.ClassName("sb-date-field__controls"))[1];
-                SetDate(dateControl, date);
+                var control = _driver.FindElement(By.ClassName("sb-dates__grid"));
+                var dateControl = control.FindElements(By.ClassName("sb-date-field__controls"));
+                SetDate(dateControl[1],date, "out");
             }
             catch (Exception e)
             {
@@ -95,11 +97,20 @@ namespace Booking.Implementation
             }
         }
 
-        private void SetDate(IWebElement dateControl, DateTime date)
+        private void SetDate(IWebElement dateControl, DateTime date, string par)
         {
-            dateControl.FindElement(By.Name("checkin_monthday")).SendKeys(date.Day.ToString());
-            dateControl.FindElement(By.Name("checkin_month")).SendKeys(date.Month.ToString());
-            dateControl.FindElement(By.Name("checkin_year")).SendKeys(date.Year.ToString());
+            var month = dateControl.FindElement(By.Name($"check{par}_month"));
+            month.Clear();
+            month.SendKeys(date.Month.ToString());
+
+            var day = dateControl.FindElement(By.Name($"check{par}_monthday"));
+            day.Clear();
+            day.SendKeys(date.Day.ToString());
+
+            var year = dateControl.FindElement(By.Name($"check{par}_year"));
+            year.Clear();
+            year.SendKeys(date.Year.ToString());
+
         }
 
         public void SetArrivingMethod(ArrivingMethod arriving)
@@ -185,13 +196,11 @@ namespace Booking.Implementation
             hotel.Description = hotelControl.TryFindElement(By.ClassName("hotel_desc"))?.Text;
 
             var imageContol = hotelControl.TryFindElement(By.ClassName("hotel_image"));
-            var link = imageContol?.GetAttribute("src");
-            if (!string.IsNullOrEmpty(link))
-            {
-                Uri uri;
-                Uri.TryCreate(link, UriKind.RelativeOrAbsolute, out uri);
-                hotel.ImageLink = uri;
-            }
+            var imageLink = imageContol?.GetAttribute("src");
+            hotel.ImageLink = CreateUri(imageLink);
+
+            var bookingHotelRawLink = hotelControl.TryFindElement(By.ClassName("hotel_name_link"))?.GetAttribute("href");
+            hotel.HotelBookingUri = CreateUri(bookingHotelRawLink);
 
             hotel.RawPrice = hotelControl.TryFindElement(By.ClassName("site_price"))?.Text;
 
@@ -203,6 +212,15 @@ namespace Booking.Implementation
             hotel.Score = GetNumericData(hotelControl, "average");
             //hotel.MaxScore = GetNumericData(hotelControl, "bestRating", "content");
             return hotel;
+        }
+
+        private Uri CreateUri(string rawLink)
+        {
+
+            Uri uri = null;
+            if (!string.IsNullOrEmpty(rawLink))
+                Uri.TryCreate(rawLink, UriKind.RelativeOrAbsolute, out uri);
+            return uri;
         }
 
         private double GetNumericData(IWebElement hotelControl, string className, string attribute = "")
