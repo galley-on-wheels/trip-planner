@@ -73,8 +73,9 @@ namespace Booking.Implementation
         {
             try
             {
-                var dateControl = _driver.FindElements(By.ClassName("sb-date-field__controls"))[0];
-                SetDate(dateControl, date);
+                var control = _driver.FindElement(By.ClassName("sb-dates__grid"));
+                var dateControl = control.FindElements(By.ClassName("sb-date-field__controls"));
+                SetDate(dateControl[0], date, "in");
             }
             catch (Exception e)
             {
@@ -86,8 +87,9 @@ namespace Booking.Implementation
         {
             try
             {
-                var dateControl = _driver.FindElements(By.ClassName("sb-date-field__controls"))[1];
-                SetDate(dateControl, date);
+                var control = _driver.FindElement(By.ClassName("sb-dates__grid"));
+                var dateControl = control.FindElements(By.ClassName("sb-date-field__controls"));
+                SetDate(dateControl[1],date, "out");
             }
             catch (Exception e)
             {
@@ -95,11 +97,20 @@ namespace Booking.Implementation
             }
         }
 
-        private void SetDate(IWebElement dateControl, DateTime date)
+        private void SetDate(IWebElement dateControl, DateTime date, string par)
         {
-            dateControl.FindElement(By.Name("checkin_monthday")).SendKeys(date.Day.ToString());
-            dateControl.FindElement(By.Name("checkin_month")).SendKeys(date.Month.ToString());
-            dateControl.FindElement(By.Name("checkin_year")).SendKeys(date.Year.ToString());
+            var month = dateControl.FindElement(By.Name($"check{par}_month"));
+            month.Clear();
+            month.SendKeys(date.Month.ToString());
+
+            var day = dateControl.FindElement(By.Name($"check{par}_monthday"));
+            day.Clear();
+            day.SendKeys(date.Day.ToString());
+
+            var year = dateControl.FindElement(By.Name($"check{par}_year"));
+            year.Clear();
+            year.SendKeys(date.Year.ToString());
+
         }
 
         public void SetArrivingMethod(ArrivingMethod arriving)
