@@ -105,13 +105,27 @@ namespace Tripper.Controllers.Dashboard
                 viewModel.Currency = "USD";
             }
 
-            //var parsedOutboundDate = DateTime.Parse(viewModel.OutboundDate);
+            DateTime parsedOutboundDate;
 
-            //var parsedInboundDate = DateTime.Parse(viewModel.InboundDate);
+            try
+            {
+                parsedOutboundDate = DateTime.Parse(viewModel.OutboundDate);
+            }
+            catch
+            {
+                parsedOutboundDate = DateTime.Now.AddMonths(1);
+            }
 
-            var parsedOutboundDate = DateTime.Now.AddMonths(1);
+            DateTime parsedInboundDate;
 
-            var parsedInboundDate = DateTime.Now.AddMonths(2);
+            try
+            {
+                parsedInboundDate = DateTime.Parse(viewModel.InboundDate);
+            }
+            catch
+            {
+                parsedInboundDate = DateTime.Now.AddMonths(2);
+            }
 
             viewModel.OutboundDate = parsedOutboundDate.ToString("yyyy-MM-dd");
 
