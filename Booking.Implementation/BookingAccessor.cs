@@ -185,13 +185,11 @@ namespace Booking.Implementation
             hotel.Description = hotelControl.TryFindElement(By.ClassName("hotel_desc"))?.Text;
 
             var imageContol = hotelControl.TryFindElement(By.ClassName("hotel_image"));
-            var link = imageContol?.GetAttribute("src");
-            if (!string.IsNullOrEmpty(link))
-            {
-                Uri uri;
-                Uri.TryCreate(link, UriKind.RelativeOrAbsolute, out uri);
-                hotel.ImageLink = uri;
-            }
+            var imageLink = imageContol?.GetAttribute("src");
+            hotel.ImageLink = CreateUri(imageLink);
+
+            var bookingHotelRawLink = hotelControl.TryFindElement(By.ClassName("hotel_name_link"))?.GetAttribute("href");
+            hotel.HotelBookingUri = CreateUri(bookingHotelRawLink);
 
             hotel.RawPrice = hotelControl.TryFindElement(By.ClassName("site_price"))?.Text;
 
@@ -203,6 +201,15 @@ namespace Booking.Implementation
             hotel.Score = GetNumericData(hotelControl, "average");
             //hotel.MaxScore = GetNumericData(hotelControl, "bestRating", "content");
             return hotel;
+        }
+
+        private Uri CreateUri(string rawLink)
+        {
+
+            Uri uri = null;
+            if (!string.IsNullOrEmpty(rawLink))
+                Uri.TryCreate(rawLink, UriKind.RelativeOrAbsolute, out uri);
+            return uri;
         }
 
         private double GetNumericData(IWebElement hotelControl, string className, string attribute = "")
